@@ -11,15 +11,20 @@ using namespace std;
 #include "Include/CAppObjLoader.h"
 #include "Include/CAppGeometricFigures.h"
 #include "Include/CAppEmpty.h"
+#include "Include/CAppMyCube.h"
+#include "Include/CAppMy_Sphere_Toroide.h"
 
 int main()
 {
-	CApp *app = NULL;					// Pointer to BASE class CApp
-	app = new CAppEmpty(800, 600);		// Using pointer to base class, create a new object of DERIVED class
-	app->run();							// Run the app
-	delete app;							// Delete pointer
-	app = NULL;							// Set pointer to NULL
+//	CAppMyCube *app = NULL;					// Pointer to BASE class CApp
+    CAppMy_Sphere_Toroide *app = NULL;					// Pointer to BASE class CApp
+	//app = new CAppMyCube(800, 600);			// Using pointer to base class, create a new object of DERIVED class
+	app = new CAppMy_Sphere_Toroide(800, 600);			// Using pointer to base class, create a new object of DERIVED class
+	app->run();								// Run the app
+	delete app;								// Delete pointer
+	app = NULL;								// Set pointer to NULL
 
 	return 0;
 }
+
 

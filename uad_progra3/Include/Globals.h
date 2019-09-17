@@ -81,4 +81,8 @@
 #define HEX_GRID_KEY_MODEL_INSTANCE_SCALE        "scale"
 #define HEX_GRID_KEY_MODEL_INSTANCE_ROTATION     "rotation"
 
+
+#define CAPP_PROGRA3_CUBE "cube"
+#define  CAPP_PROGRA3_ESFERA "esfera"
+
 #endif // !_GLOBALS_H
