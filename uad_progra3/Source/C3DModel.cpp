@@ -154,6 +154,7 @@ C3DModel* C3DModel::load(const char * const filename, COpenGLRenderer * const sh
 		else if (!fileExtension.compare("fbx"))
 		{
 			cout << "FBX file format reading not implemented" << endl;
+			//AQUI INICIA EL PROYECTO
 		}
 		
 		// If model geometry could be loaded, save it to graphics card

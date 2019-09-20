@@ -7,14 +7,12 @@ using namespace std;
 #include "../Include/CAppEmpty.h"
 
 /* */
-CAppEmpty::CAppEmpty() :
-	CAppEmpty(CGameWindow::DEFAULT_WINDOW_WIDTH, CGameWindow::DEFAULT_WINDOW_HEIGHT)
+CAppEmpty::CAppEmpty() : CAppEmpty(CGameWindow::DEFAULT_WINDOW_WIDTH, CGameWindow::DEFAULT_WINDOW_HEIGHT)
 {
 }
 
 /* */
-CAppEmpty::CAppEmpty(int window_width, int window_height) :
-	CApp(window_width, window_height)
+CAppEmpty::CAppEmpty(int window_width, int window_height) : CApp(window_width, window_height)
 {
 	cout << "Constructor: CAppEmpty(int window_width, int window_height)" << endl;
 

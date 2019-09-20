@@ -41,26 +41,32 @@ void CAppMy_Sphere_Toroide::CreateSphere()
 {
 	vector	<float> indices;
 	int LH = 5;
-	int LV =5;
+	int LV = 5;
 	int radio = 2;
+	int numVertex = ((LV * 2)*LH) + 2;
+	int numVerteData = (numVertex * 3);
+	int idx = 0;
+	int numIdx = 0;
+
+	const float pi = 3.1415926535f;
 	float grado1 = 180 / (LH + 1);
 	float grado2 = 180 / (LV);
 
-	m_numFaces = (2 * (LV * 2))*LH;
-	int numVertex = ((LV * 2)*LH) + 2;
-	int numVerteData = numVertex * 3;
+	m_numFaces = ((2 * (LV * 2))* LH);
+
 	float *vertexData = new float[numVerteData];
 
-	int idx = 0;
-	int numIdx = 0;
-	const float pi = 3.1415926535f;
-	for (float i = 90; i >=-90; i-=grado1)
+	//clear memory
+	memset(vertexData, 0, sizeof(int) * numVerteData);
+
+	
+	for (float i = 90.0f; i >= -90.0f; i-= grado1)
 	{
-		if (i==90||i<=-90)
+		if (i == 90 || i <= -90)
 		{
-			vertexData[idx++] = radio * cos(i*(pi/180))*cos(0);
-			vertexData[idx++] = radio * sin(i*(pi / 180));
-			vertexData[idx++] = radio * cos(i*(pi / 180))*sin(0);
+			vertexData[idx++] = (radio * (cos (i * (pi/180)))) * cos(0);
+			vertexData[idx++] = radio * sin (i * (pi / 180));
+			vertexData[idx++] = radio * cos (i * (pi / 180)) * sin(0);
 			indices.push_back(numIdx);
 			numIdx += 1;
 		}

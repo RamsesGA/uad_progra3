@@ -14,20 +14,13 @@ using namespace std;
 #include "../Include/CTextureLoader.h"
 
 /* */
-CAppObjLoader::CAppObjLoader() :
-	CAppObjLoader(CGameWindow::DEFAULT_WINDOW_WIDTH, CGameWindow::DEFAULT_WINDOW_HEIGHT) // C++11 ability to call one constructor from another
+CAppObjLoader::CAppObjLoader() : CAppObjLoader(CGameWindow::DEFAULT_WINDOW_WIDTH, CGameWindow::DEFAULT_WINDOW_HEIGHT) // C++11 ability to call one constructor from another
 {
 	cout << "Constructor: CAppObjLoader()" << endl;
 }
 
 /* */
-CAppObjLoader::CAppObjLoader(int window_width, int window_height) :
-	CApp(window_width, window_height),
-	m_p3DModel(nullptr),
-	m_currentDeltaTime{ 0.0 },
-	m_objectRotation{ 0.0 },
-	m_objectPosition{ 0.0f, 0.0f, 0.0f },
-	m_rotationSpeed{ DEFAULT_ROTATION_SPEED }
+CAppObjLoader::CAppObjLoader(int window_width, int window_height) : CApp(window_width, window_height),m_p3DModel(nullptr),m_currentDeltaTime{ 0.0 },m_objectRotation{ 0.0 },m_objectPosition{ 0.0f, 0.0f, 0.0f },m_rotationSpeed{ DEFAULT_ROTATION_SPEED }
 {
 	cout << "Constructor: CAppObjLoader(int window_width, int window_height)" << endl;
 }
@@ -40,10 +33,7 @@ CAppObjLoader::~CAppObjLoader()
 }
 
 /* */
-void CAppObjLoader::initialize()
-{
-
-}
+void CAppObjLoader::initialize(){}
 
 /* */
 void CAppObjLoader::run()

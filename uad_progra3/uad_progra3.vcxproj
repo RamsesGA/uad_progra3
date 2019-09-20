@@ -166,10 +166,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\C3DModel.h" />
+    <ClInclude Include="Include\C3DModel_FBX.h" />
     <ClInclude Include="Include\C3DModel_Obj.h" />
     <ClInclude Include="Include\CApp.h" />
     <ClInclude Include="Include\CAppCubeTest.h" />
     <ClInclude Include="Include\CAppEmpty.h" />
+    <ClInclude Include="Include\CAppFBX_Loader.h" />
     <ClInclude Include="Include\CAppGeometricFigures.h" />
     <ClInclude Include="Include\CAppMyCube.h" />
     <ClInclude Include="Include\CAppMy_Sphere_Toroide.h" />
@@ -203,10 +205,12 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Source\C3DModel.cpp" />
+    <ClCompile Include="Source\C3DModel_FBX.cpp" />
     <ClCompile Include="Source\C3DModel_Obj.cpp" />
     <ClCompile Include="Source\CApp.cpp" />
     <ClCompile Include="Source\CAppCubeTest.cpp" />
     <ClCompile Include="Source\CAppEmpty.cpp" />
+    <ClCompile Include="Source\CAppFBX_Loader.cpp" />
     <ClCompile Include="Source\CAppGeometricFigures.cpp" />
     <ClCompile Include="Source\CAppMyCube.cpp" />
     <ClCompile Include="Source\CAppMy_Sphere_Toroide.cpp" />

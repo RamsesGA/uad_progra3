@@ -7,8 +7,7 @@ using namespace std;
 #include "../Include/LoadTGA.h"
 
 /* */
-CApp::CApp():
-	CApp(CGameWindow::DEFAULT_WINDOW_WIDTH, CGameWindow::DEFAULT_WINDOW_HEIGHT)
+CApp::CApp(): CApp(CGameWindow::DEFAULT_WINDOW_WIDTH, CGameWindow::DEFAULT_WINDOW_HEIGHT)
 {
 }
 
