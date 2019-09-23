@@ -10,13 +10,13 @@ using namespace std;
 class C3DModel_FBX : public C3DModel
 {
 	private:
-		int m_currentVertex, m_currentNormal, m_currentUV, m_currentFace;	// Aux counters used when loading an object from file
-	
-		bool readFbxFile(const char * const file_name, bool count_Only);	// Read object from file 
+		int m_currentVertex, m_currentNormal, m_currentUV, m_currentFace, m_currentUV_Index;	// Aux counters used when loading an object from file
 
-		bool parseFbxLine(std::string line, bool count_Only, int line_Number);	// Parse line
+		//bool readFbxFile(const char * const file_name, bool count_Only);	// Read object from file 
+
+		bool parseFbxLine(const char * const file_name, bool control);	// Parse line
 			
-		bool readMtllib(std::string m_tl_Lib_File_name);
+		bool readMtllib(string m_tl_Lib_File_name);
 	
 	protected:
 		void reset();														// Cleanup any allocated memory

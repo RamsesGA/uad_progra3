@@ -11,6 +11,7 @@ using namespace std;
 #include "../Include/Globals.h"
 #include "../Include/C3DModel.h"
 #include "../Include/C3DModel_Obj.h"
+#include "../Include/C3DModel_FBX.h"
 #include "../Include/CTextureLoader.h"
 
 /* */
@@ -118,17 +119,17 @@ C3DModel* C3DModel::load(const char * const filename, COpenGLRenderer * const sh
 
 	// Check the file type
 	// We could use the "PathFindExtension" function but that needs the shlwapi.lib, instead we'll keep it simple and avoid more dependencies
-	std::string stdFilename(filename);
+	string stdFilename(filename);
 	
 	size_t dotIndex = stdFilename.rfind('.', stdFilename.length());
 	
 	if (dotIndex != string::npos)
 	{
-		std::string fileExtension = stdFilename.substr(dotIndex + 1, stdFilename.length() - dotIndex);
+		string fileExtension = stdFilename.substr(dotIndex + 1, stdFilename.length() - dotIndex);
 
 		// Convert to lowercase
 		// NOTE: ::tolower works on single bytes, which can be a problem for multi-byte encoding, like UTF8
-		std::transform(fileExtension.begin(), fileExtension.end(), fileExtension.begin(), ::tolower);
+		transform(fileExtension.begin(), fileExtension.end(), fileExtension.begin(), ::tolower);
 
 		cout << "File extension: " << fileExtension << endl;
 
@@ -143,6 +144,17 @@ C3DModel* C3DModel::load(const char * const filename, COpenGLRenderer * const sh
 				newModel->reset();
 			}
 		}
+		else if (!fileExtension.compare("fbx"))
+		{
+			//ESCENCIAL PARA EL PROYECTO
+			cout << "\nCargando modelo FBX" << endl;
+			newModel = new C3DModel_FBX();
+
+			if (!newModel->loadFromFile(filename))
+			{
+				newModel->reset();
+			}
+		}
 		else if (!fileExtension.compare("3ds"))
 		{
 			cout << "3DS file format reading not implemented" << endl;
@@ -151,18 +163,14 @@ C3DModel* C3DModel::load(const char * const filename, COpenGLRenderer * const sh
 		{
 			cout << "STL file format reading not implemented" << endl;
 		}
-		else if (!fileExtension.compare("fbx"))
-		{
-			cout << "FBX file format reading not implemented" << endl;
-			//AQUI INICIA EL PROYECTO
-		}
+		
 		
 		// If model geometry could be loaded, save it to graphics card
 		if (newModel != nullptr && newModel->isGeometryLoaded() && shp_OpenGLRenderer != nullptr)
 		{
 			unsigned int newModelShaderId = 0;
 			unsigned int newTextureID = 0;
-			unsigned int newModelVertexArrayObject = 0;
+			unsigned int newModelVertexArrayObject = NULL;
 			bool loadedToGraphicsCard = false;
 
 			// By default, shaders to be loaded are for non-textured objects, but if the model has a valid texture filename and UVs, 
@@ -212,7 +220,7 @@ C3DModel* C3DModel::load(const char * const filename, COpenGLRenderer * const sh
 					newModel->getNumUVCoords(),
 					newModel->getModelVertexIndices(),
 					newModel->getNumFaces(),
-					newModel->getModelNormalIndices(),
+					newModel->getModelUVCoordIndices(),
 					((newModel) ? (newModel->getNumFaces()) : 0),
 					newModel->getModelUVCoordIndices(),
 					((newModel) ? (newModel->getNumFaces()) : 0)

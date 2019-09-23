@@ -18,9 +18,7 @@ using namespace std;
 int main()
 {
 	CAppFBX_Loader *app = NULL;					// Pointer to BASE class CApp
-    //CAppMy_Sphere_Toroide *app = NULL;					// Pointer to BASE class CApp
 	app = new CAppFBX_Loader(800, 600);		// Using pointer to base class, create a new object of DERIVED class
-	//app = new CAppMy_Sphere_Toroide(800, 600);			// Using pointer to base class, create a new object of DERIVED class
 	app->run();								// Run the app
 	delete app;								// Delete pointer
 	app = NULL;								// Set pointer to NULL
