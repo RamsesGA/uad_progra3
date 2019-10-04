@@ -1,0 +1,86 @@
+solid TEST_CUBE2
+  facet normal 0.000000e+000 0.000000e+000 -1.000000e+000
+    outer loop
+      vertex 1.160000e+000 1.420000e+000 0.000000e+000
+      vertex 0.000000e+000 0.000000e+000 0.000000e+000
+      vertex 0.000000e+000 1.420000e+000 0.000000e+000
+    endloop
+  endfacet
+  facet normal -0.000000e+000 0.000000e+000 -1.000000e+000
+    outer loop
+      vertex 0.000000e+000 0.000000e+000 0.000000e+000
+      vertex 1.160000e+000 1.420000e+000 0.000000e+000
+      vertex 1.160000e+000 0.000000e+000 0.000000e+000
+    endloop
+  endfacet
+  facet normal -0.000000e+000 0.000000e+000 1.000000e+000
+    outer loop
+      vertex 1.160000e+000 0.000000e+000 1.060000e+000
+      vertex 0.000000e+000 1.420000e+000 1.060000e+000
+      vertex 0.000000e+000 0.000000e+000 1.060000e+000
+    endloop
+  endfacet
+  facet normal 0.000000e+000 0.000000e+000 1.000000e+000
+    outer loop
+      vertex 0.000000e+000 1.420000e+000 1.060000e+000
+      vertex 1.160000e+000 0.000000e+000 1.060000e+000
+      vertex 1.160000e+000 1.420000e+000 1.060000e+000
+    endloop
+  endfacet
+  facet normal 0.000000e+000 -1.000000e+000 0.000000e+000
+    outer loop
+      vertex 1.160000e+000 0.000000e+000 1.060000e+000
+      vertex 0.000000e+000 0.000000e+000 0.000000e+000
+      vertex 1.160000e+000 0.000000e+000 0.000000e+000
+    endloop
+  endfacet
+  facet normal 0.000000e+000 -1.000000e+000 -0.000000e+000
+    outer loop
+      vertex 0.000000e+000 0.000000e+000 0.000000e+000
+      vertex 1.160000e+000 0.000000e+000 1.060000e+000
+      vertex 0.000000e+000 0.000000e+000 1.060000e+000
+    endloop
+  endfacet
+  facet normal -1.000000e+000 0.000000e+000 0.000000e+000
+    outer loop
+      vertex 0.000000e+000 1.420000e+000 1.060000e+000
+      vertex 0.000000e+000 0.000000e+000 0.000000e+000
+      vertex 0.000000e+000 0.000000e+000 1.060000e+000
+    endloop
+  endfacet
+  facet normal -1.000000e+000 -0.000000e+000 0.000000e+000
+    outer loop
+      vertex 0.000000e+000 0.000000e+000 0.000000e+000
+      vertex 0.000000e+000 1.420000e+000 1.060000e+000
+      vertex 0.000000e+000 1.420000e+000 0.000000e+000
+    endloop
+  endfacet
+  facet normal 0.000000e+000 1.000000e+000 -0.000000e+000
+    outer loop
+      vertex 0.000000e+000 1.420000e+000 1.060000e+000
+      vertex 1.160000e+000 1.420000e+000 0.000000e+000
+      vertex 0.000000e+000 1.420000e+000 0.000000e+000
+    endloop
+  endfacet
+  facet normal 0.000000e+000 1.000000e+000 0.000000e+000
+    outer loop
+      vertex 1.160000e+000 1.420000e+000 0.000000e+000
+      vertex 0.000000e+000 1.420000e+000 1.060000e+000
+      vertex 1.160000e+000 1.420000e+000 1.060000e+000
+    endloop
+  endfacet
+  facet normal 1.000000e+000 8.395021e-008 1.124616e-007
+    outer loop
+      vertex 1.160000e+000 1.420000e+000 0.000000e+000
+      vertex 1.160000e+000 0.000000e+000 1.060000e+000
+      vertex 1.160000e+000 0.000000e+000 0.000000e+000
+    endloop
+  endfacet
+  facet normal 1.000000e+000 -8.395021e-008 -1.124616e-007
+    outer loop
+      vertex 1.160000e+000 0.000000e+000 1.060000e+000
+      vertex 1.160000e+000 1.420000e+000 0.000000e+000
+      vertex 1.160000e+000 1.420000e+000 1.060000e+000
+    endloop
+  endfacet
+endsolid TEST_CUBE2

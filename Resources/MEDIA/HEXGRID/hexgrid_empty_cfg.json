@@ -1,0 +1,8 @@
+{
+	"HexGrid" : {
+		"numCols"     : 10,
+		"numRows"     : 10,
+		"cellSize"    : 1.5,
+		"orientation" : "flat"
+	}
+}

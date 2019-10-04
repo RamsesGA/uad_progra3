@@ -1,0 +1,178 @@
+{
+	"HexGrid" : {
+		"numCols"     : 12,
+		"numRows"     : 12,
+		"cellSize"    : 1.75,
+		"orientation" : "pointy"
+	},
+	"Models" : [
+		{
+			"name"     : "BirchTree_5", 
+			"filename" : "MODELS\\OBJ\\BirchTree_5.obj" 
+		},
+		{ 
+			"name"     : "BirchTree_1", 
+			"filename" : "MODELS\\OBJ\\BirchTree_1.obj" 
+		},
+		{ 
+			"name"     : "BirchTree_Dead_Snow_2", 
+			"filename" : "MODELS\\OBJ\\BirchTree_Dead_Snow_2.obj" 
+		},
+		{ 
+			"name"     : "BushBerries_1", 
+			"filename" : "MODELS\\OBJ\\BushBerries_1.obj" 
+		},
+		{ 
+			"name"     : "CommonTree_Autumn_5",
+			"filename" : "MODELS\\OBJ\\CommonTree_Autumn_5.obj" 
+		},
+		{ 
+			"name"     : "Rock_3",
+			"filename" : "MODELS\\OBJ\\Rock_3.obj" 
+		},
+		{ 
+			"name"     : "Grass_2",
+			"filename" : "MODELS\\OBJ\\Grass_2.obj" 
+		},
+		{ 
+			"name"     : "Grass_Short",
+			"filename" : "MODELS\\OBJ\\Grass_Short.obj" 
+		},
+		{ 
+			"name"     : "PineTree_4",
+			"filename" : "MODELS\\OBJ\\PineTree_4.obj" 
+		},
+		{ 
+			"name"     : "Plant_3", 
+			"filename" : "MODELS\\OBJ\\Plant_3.obj" 
+		}
+	],
+	"ModelInstances" : [
+		{ 
+			"model"  : "Plant_3", 
+			"row"    : 1,
+			"column" : 3,
+			"scale"  : 2.5,
+			"rotation" : [0.0, 25.0, 0.0]
+		},
+		{ 
+			"model"  : "Plant_3", 
+			"row"    : 1,
+			"column" : 7,
+			"scale"  : 3.0,
+			"rotation" : [0.0, 125.0, 0.0]
+		},
+		{ 
+			"model"  : "Rock_3", 
+			"row"    : 0,
+			"column" : 0,
+			"scale"  : 4.5,
+			"rotation" : [0.0, 0.0, 0.0]
+		},
+		{ 
+			"model"  : "Rock_3", 
+			"row"    : 1,
+			"column" : 0,
+			"scale"  : 3.5,
+			"rotation" : [0.0, 90.0, 0.0]
+		},
+		{ 
+			"model"  : "Rock_3", 
+			"row"    : 2,
+			"column" : 0,
+			"scale"  : 3.0,
+			"rotation" : [0.0, 270.0, 0.0]
+		},
+		{ 
+			"model"  : "Rock_3", 
+			"row"    : 0,
+			"column" : 8,
+			"scale"  : 4.0,
+			"rotation" : [0.0, 20.0, 0.0]
+		},
+		{ 
+			"model"  : "Rock_3", 
+			"row"    : 0,
+			"column" : 11,
+			"scale"  : 5.0,
+			"rotation" : [0.0, 320.0, 0.0]
+		},
+		{ 
+			"model"  : "BushBerries_1", 
+			"row"    : 1,
+			"column" : 4,
+			"scale"  : 1.55,
+			"rotation" : [0.0, 25.0, 0.0]
+		},
+		{ 
+			"model"  : "BushBerries_1", 
+			"row"    : 1,
+			"column" : 5,
+			"scale"  : 2.0,
+			"rotation" : [0.0, 75.0, 0.0]
+		},
+		{ 
+			"model"  : "BushBerries_1", 
+			"row"    : 0,
+			"column" : 9,
+			"scale"  : 1.5,
+			"rotation" : [0.0, 0.0, 0.0]
+		},
+		{ 
+			"model"  : "Grass_2", 
+			"row"    : 0,
+			"column" : 1,
+			"scale"  : 2.50,
+			"rotation" : [0.0, 0.0, 0.0]
+		},
+		{ 
+			"model"  : "Grass_2", 
+			"row"    : 0,
+			"column" : 2,
+			"scale"  : 2.75,
+			"rotation" : [0.0, 5.0, 0.0]
+		},
+		{ 
+			"model"  : "Grass_2", 
+			"row"    : 0,
+			"column" : 3,
+			"scale"  : 2.75,
+			"rotation" : [0.0, 10.0, 0.0]
+		},
+		{ 
+			"model"  : "Grass_2", 
+			"row"    : 0,
+			"column" : 10,
+			"scale"  : 2.0,
+			"rotation" : [0.0, 10.0, 0.0]
+		},
+		{ 
+			"model"  : "CommonTree_Autumn_5", 
+			"row"    : 0,
+			"column" : 4,
+			"scale"  : 2.00,
+			"rotation" : [0.0, 45.0, 0.0]
+		},
+		{ 
+			"model"  : "CommonTree_Autumn_5", 
+			"row"    : 5,
+			"column" : 0,
+			"scale"  : 2.50,
+			"rotation" : [0.0, 0.0, 0.0]
+		},
+		{ 
+			"model"  : "BirchTree_1", 
+			"row"    : 0,
+			"column" : 7,
+			"scale"  : 2.50,
+			"rotation" : [0.0, 10.0, 0.0]
+		},
+		{ 
+			"model"  : "BirchTree_1", 
+			"row"    : 0,
+			"column" : 5,
+			"scale"  : 2.0,
+			"rotation" : [0.0, 245.0, 0.0]
+		}
+	]
+}

@@ -1,0 +1,86 @@
+solid 9A59
+facet normal 0 0 -1
+  outer loop
+    vertex 1.159999966621399 1.419999957084656 0
+    vertex 0 0 0
+    vertex 0 1.419999957084656 0
+  endloop
+endfacet
+facet normal 0 0 -1
+  outer loop
+    vertex 0 0 0
+    vertex 1.159999966621399 1.419999957084656 0
+    vertex 1.159999966621399 0 0
+  endloop
+endfacet
+facet normal 0 0 1
+  outer loop
+    vertex 1.159999966621399 0 1.059999942779541
+    vertex 0 1.419999957084656 1.059999942779541
+    vertex 0 0 1.059999942779541
+  endloop
+endfacet
+facet normal 0 0 1
+  outer loop
+    vertex 0 1.419999957084656 1.059999942779541
+    vertex 1.159999966621399 0 1.059999942779541
+    vertex 1.159999966621399 1.419999957084656 1.059999942779541
+  endloop
+endfacet
+facet normal 0 -1 0
+  outer loop
+    vertex 1.159999966621399 0 1.059999942779541
+    vertex 0 0 0
+    vertex 1.159999966621399 0 0
+  endloop
+endfacet
+facet normal 0 -1 0
+  outer loop
+    vertex 0 0 0
+    vertex 1.159999966621399 0 1.059999942779541
+    vertex 0 0 1.059999942779541
+  endloop
+endfacet
+facet normal -1 0 0
+  outer loop
+    vertex 0 1.419999957084656 1.059999942779541
+    vertex 0 0 0
+    vertex 0 0 1.059999942779541
+  endloop
+endfacet
+facet normal -1 0 0
+  outer loop
+    vertex 0 0 0
+    vertex 0 1.419999957084656 1.059999942779541
+    vertex 0 1.419999957084656 0
+  endloop
+endfacet
+facet normal 0 1 0
+  outer loop
+    vertex 0 1.419999957084656 1.059999942779541
+    vertex 1.159999966621399 1.419999957084656 0
+    vertex 0 1.419999957084656 0
+  endloop
+endfacet
+facet normal 0 1 0
+  outer loop
+    vertex 1.159999966621399 1.419999957084656 0
+    vertex 0 1.419999957084656 1.059999942779541
+    vertex 1.159999966621399 1.419999957084656 1.059999942779541
+  endloop
+endfacet
+facet normal 1 0 0
+  outer loop
+    vertex 1.159999966621399 1.419999957084656 0
+    vertex 1.159999966621399 0 1.059999942779541
+    vertex 1.159999966621399 0 0
+  endloop
+endfacet
+facet normal 1 0 0
+  outer loop
+    vertex 1.159999966621399 0 1.059999942779541
+    vertex 1.159999966621399 1.419999957084656 0
+    vertex 1.159999966621399 1.419999957084656 1.059999942779541
+  endloop
+endfacet
+endsolid 9A59
