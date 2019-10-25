@@ -305,7 +305,6 @@ bool COpenGLRenderer::useShaderProgram(const unsigned int * const shaderProgramI
 
 		if (it != m_shaderProgramWrappers.end() && it->second != nullptr)
 		{
-			glUseProgram((GLuint)*shaderProgramId);
 			m_activeShaderProgram = shaderProgramId;
 			m_activeShaderProgramWrapper = it->second;
 
@@ -586,7 +585,7 @@ bool COpenGLRenderer::allocateGraphicsMemoryForObject(
 
 	if (vertexArrayObjectID != NULL
 		&& *shaderProgramId > 0
-		&& vertices != NULL 
+		&& vertices != NULL
 		&& normals != NULL
 		&& UVcoords != NULL
 		&& indicesVertices != NULL
@@ -616,7 +615,7 @@ bool COpenGLRenderer::allocateGraphicsMemoryForObject(
 		int finalNumTriangles = 0;
 		int numFaces = numIndicesVert;
 		int finalNumVertices = numFaces * 3 * 3; // Number of faces * 3 vertex indices * 3 components (x,y,z)
-		int finalNumNormals  = numFaces * 3 * 3; // Number of faces * 3 normal indices * 3 components (x,y,z)
+		int finalNumNormals = numFaces * 3 * 3; // Number of faces * 3 normal indices * 3 components (x,y,z)
 		int finalNumUVCoords = numFaces * 3 * 2; // Number of faces * 3 UV indices * 2 components (x, y)
 
 		GLfloat *finalVertices = new GLfloat[finalNumVertices];
@@ -679,7 +678,7 @@ bool COpenGLRenderer::allocateGraphicsMemoryForObject(
 		// Link the vertex position buffer with the shader
 		glVertexAttribPointer(shaderProgramWrapper->getNormalAttributeLocation(), 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
 		glEnableVertexAttribArray(shaderProgramWrapper->getNormalAttributeLocation());
-		
+
 		// Generate a buffer for the UV coords and set its data
 		glGenBuffers(1, &uvCoordsPositionBuffer);
 		glBindBuffer(GL_ARRAY_BUFFER, uvCoordsPositionBuffer);
@@ -690,7 +689,7 @@ bool COpenGLRenderer::allocateGraphicsMemoryForObject(
 		glEnableVertexAttribArray(shaderProgramWrapper->getUVAttributeLocation());
 
 		// Generate a buffer for the triangle indices and set its data
-		
+
 		//*** glGenBuffers(1, &indicesVertexBuffer);
 		//*** glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indicesVertexBuffer);
 		//*** glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned short) * numIndicesVert * 3, indicesVertices, GL_STATIC_DRAW);

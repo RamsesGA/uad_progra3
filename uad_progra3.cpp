@@ -13,16 +13,17 @@ using namespace std;
 #include "Include/CAppMy_Sphere_Toroide.h"
 #include "Include/CAppObjLoader.h"
 #include "Include/CAppFBX_Loader.h"
+#include "Include/Hexa_World.h"
+#include "Include/Hexa_Grid.h"
 
 
 int main()
 {
-	CAppGeometricFigures *app = NULL;					// Pointer to BASE class CApp
-	app = new CAppGeometricFigures(800, 600);		// Using pointer to base class, create a new object of DERIVED class
+	Hexa_World *app = NULL;					// Pointer to BASE class CApp
+	app = new Hexa_World(800, 600);		// Using pointer to base class, create a new object of DERIVED class
 	app->run();								// Run the app
 	delete app;								// Delete pointer
 	app = NULL;								// Set pointer to NULL
-
 	return 0;
 }
 

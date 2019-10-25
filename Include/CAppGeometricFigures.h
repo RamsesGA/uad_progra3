@@ -107,7 +107,7 @@ public:
 
 private:
 
-	int m_jetas_hexa;
+	int m_caras_hexa;
 	void createPyramidGeometry();
 	CVector3 createHexaGemoetry(CVector3 _center, int _indice, float _cell_size, bool _p);
 	void structureHexa();

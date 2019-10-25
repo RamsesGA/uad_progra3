@@ -173,6 +173,7 @@
     <ClInclude Include="Include\CAppEmpty.h" />
     <ClInclude Include="Include\CAppFBX_Loader.h" />
     <ClInclude Include="Include\CAppGeometricFigures.h" />
+    <ClInclude Include="Include\CAppHexGrid.h" />
     <ClInclude Include="Include\CAppMyCube.h" />
     <ClInclude Include="Include\CAppMy_Sphere_Toroide.h" />
     <ClInclude Include="Include\CAppObjLoader.h" />
@@ -191,6 +192,9 @@
     <ClInclude Include="Include\CVector3.h" />
     <ClInclude Include="Include\CWideStringHelper.h" />
     <ClInclude Include="Include\Globals.h" />
+    <ClInclude Include="Include\Grid.h" />
+    <ClInclude Include="Include\Hexa_Grid.h" />
+    <ClInclude Include="Include\Hexa_World.h" />
     <ClInclude Include="Include\LoadShaders.h" />
     <ClInclude Include="Include\LoadTGA.h" />
     <ClInclude Include="Include\MathHelper.h" />
@@ -212,6 +216,7 @@
     <ClCompile Include="Source\CAppEmpty.cpp" />
     <ClCompile Include="Source\CAppFBX_Loader.cpp" />
     <ClCompile Include="Source\CAppGeometricFigures.cpp" />
+    <ClCompile Include="Source\CAppHexGrid.cpp" />
     <ClCompile Include="Source\CAppMyCube.cpp" />
     <ClCompile Include="Source\CAppMy_Sphere_Toroide.cpp" />
     <ClCompile Include="Source\CAppObjLoader.cpp" />
@@ -225,6 +230,8 @@
     <ClCompile Include="Source\COpenGLShaderProgram.cpp" />
     <ClCompile Include="Source\CTextureLoader.cpp" />
     <ClCompile Include="Source\CVector3.cpp" />
+    <ClCompile Include="Source\Hexa_Grid.cpp" />
+    <ClCompile Include="Source\Hexa_World.cpp" />
     <ClCompile Include="Source\LoadShaders.cpp" />
     <ClCompile Include="Source\LoadTGA.cpp" />
     <ClCompile Include="stdafx.cpp" />

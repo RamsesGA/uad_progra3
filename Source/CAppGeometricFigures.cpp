@@ -50,11 +50,7 @@ CAppGeometricFigures::~CAppGeometricFigures()
 void CAppGeometricFigures::initialize()
 {
 	// Initialize app-specific stuff here
-	// ==================================
-	//
 	// Get shader for color objects
-	// -------------------------------------------------------------------------------------------------------------
-
 	m_colorModelShaderId = getOpenGLRenderer()->getShaderProgramID(SHADER_PROGRAM_COLOR_OBJECT);
 
 	if (m_colorModelShaderId == 0)
@@ -62,10 +58,7 @@ void CAppGeometricFigures::initialize()
 		cout << "ERROR: Unable to load color shader" << endl;
 		return;
 	}
-
 	// Get shader for textured objects
-	// -------------------------------------------------------------------------------------------------------------
-
 	m_texturedModelShaderId = getOpenGLRenderer()->getShaderProgramID(SHADER_PROGRAM_TEXTURED_OBJECT);
 
 	if (m_texturedModelShaderId == 0)
@@ -167,10 +160,9 @@ void CAppGeometricFigures::update(double deltaTime)
 	{
 		m_objectRotation = 0.0;
 	}
-	// ===============================
 }
 
-/* */
+/* *///IMPORTANTE
 void CAppGeometricFigures::render()
 {
 	CGameMenu *menu = getMenu();
@@ -178,14 +170,10 @@ void CAppGeometricFigures::render()
 	// If menu is active, render menu
 	if (menu != NULL && menu->isInitialized() && menu->isActive())
 	{
-		//...
 	}
 	else // Otherwise, render app-specific stuff here...
 	{
-		// =================================
-		//
-		// White 
-		// Colors are in the 0..1 range, if you want to use RGB, use (R/255, G/255, G/255)
+		// White , Colors are in the 0..1 range, if you want to use RGB, use (R/255, G/255, G/255)
 		float color[3] = { 1.0f, 1.0f, 1.0f };
 		unsigned int noTexture = 0;
 	
@@ -213,7 +201,7 @@ void CAppGeometricFigures::render()
 		//		false
 		//	);
 
-		if (m_pyramidVertexArrayObject > 0 && m_jetas_hexa > 0)
+		if (m_pyramidVertexArrayObject > 0 && m_caras_hexa > 0)
 		{
 			CVector3 pos2 = m_objectPosition;
 			pos2 += CVector3(3.0f, 0.0f, 0.0f);
@@ -224,7 +212,7 @@ void CAppGeometricFigures::render()
 				&m_texturedModelShaderId,
 				&m_pyramidVertexArrayObject,
 				&m_textureID,
-				m_jetas_hexa,
+				m_caras_hexa,
 				color,
 				&modelMatrix2,
 				COpenGLRenderer::EPRIMITIVE_MODE::TRIANGLES,
@@ -244,7 +232,6 @@ void CAppGeometricFigures::onMouseMove(float deltaX, float deltaY)
 	//
 	// ===============================================
 }
-
 
 //Constructor de puntos del Hexa
 CVector3 CAppGeometricFigures::createHexaGemoetry(CVector3 _center, int _indice, float _size, bool _p)
@@ -304,9 +291,9 @@ void CAppGeometricFigures::structureHexa()
 
 	unsigned short face_Normal_Indices[12] = { 0,0,0, 0,0,0, 0,0,0, 0,0,0 };
 
-	m_jetas_hexa = 4;
+	m_caras_hexa = 4;
 
-	for (int i = 0; i < m_jetas_hexa; i++)
+	for (int i = 0; i < m_caras_hexa; i++)
 	{
 		// Vertex 1
 		v1.setValues(
@@ -359,7 +346,7 @@ void CAppGeometricFigures::structureHexa()
 
 	if (!carga)
 	{
-		m_jetas_hexa = 0;
+		m_caras_hexa = 0;
 
 		if (m_pyramidVertexArrayObject > 0)
 		{
@@ -369,8 +356,6 @@ void CAppGeometricFigures::structureHexa()
 	}
 
 }
-
-
 
 /* */
 void CAppGeometricFigures::createPyramidGeometry()

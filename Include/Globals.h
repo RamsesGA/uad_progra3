@@ -8,6 +8,8 @@
 #define CAPP_PROGRA3_CUBES_WINDOW_TITLE         "Cubes app"
 #define CAPP_PROGRA3_OBJ_LOADER_WINDOW_TITLE    ".OBJ Loader app"
 #define CAPP_PROGRA3_FBX_LOADER_WINDOW_TITLE	".FBX Loader app :D"
+#define CAPP_PROGRA3_JSON_LOADER_WINDOW_TITLE	".JSON Loader app ;D"
+#define CAPP_PROGRA3_HEXA_WINDOW_TITLE			"Generador de hexágono"
 #define CAPP_PROGRA3_GEOMETRIC_WINDOW_TITLE     "Geometric shapes app"
 #define CAPP_PROGRA3_HEXGRID_WINDOW_TITLE       "HexGrid app"
 
