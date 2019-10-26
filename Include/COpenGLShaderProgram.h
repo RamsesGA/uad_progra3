@@ -47,7 +47,7 @@ private:
 
 	// Attributes locations (Attributes change per-vertex) (position, normal, UV, and color)
 	std::map<std::string, int> m_attributeLocations;
-	
+
 public:
 	COpenGLShaderProgram();
 	~COpenGLShaderProgram();
@@ -56,7 +56,7 @@ public:
 
 	// Setters / Getters
 	//
-    bool setParameter(std::string paramName, void *val, COpenGLShaderProgram::SHADER_PARAM_TYPE paramType, unsigned int szValue, int numValues);
+	bool setParameter(std::string paramName, void *val, COpenGLShaderProgram::SHADER_PARAM_TYPE paramType, unsigned int szValue, int numValues);
 
 	// Shader Program ID
 	unsigned int getShaderProgramID() const { return m_shaderProgramID; }
@@ -66,24 +66,24 @@ public:
 	int getUniformLocation(std::string uniformName) const;
 	void setUniformLocation(std::string uniformName, int id);
 
-	int getModelMatrixUniformLocation() const		{ return getUniformLocation(UNIFORM_MODEL_MATRIX);		}
-	int getViewMatrixUniformLocation() const		{ return getUniformLocation(UNIFORM_VIEW_MATRIX);		}
-	int getProjectionMatrixUniformLocation() const	{ return getUniformLocation(UNIFORM_PROJECTION_MATRIX);	}
-	int getColorUniformLocation() const				{ return getUniformLocation(UNIFORM_COLOR);				}
-	int getTextureSamplerUniformLocation() const	{ return getUniformLocation(UNIFORM_TEXTURE_SAMPLER);	}
-    int getAmbientLightColorUniformLocation()     const { return getUniformLocation(UNIFORM_AMBIENT_COLOR);     }
+	int getModelMatrixUniformLocation() const { return getUniformLocation(UNIFORM_MODEL_MATRIX); }
+	int getViewMatrixUniformLocation() const { return getUniformLocation(UNIFORM_VIEW_MATRIX); }
+	int getProjectionMatrixUniformLocation() const { return getUniformLocation(UNIFORM_PROJECTION_MATRIX); }
+	int getColorUniformLocation() const { return getUniformLocation(UNIFORM_COLOR); }
+	int getTextureSamplerUniformLocation() const { return getUniformLocation(UNIFORM_TEXTURE_SAMPLER); }
+	int getAmbientLightColorUniformLocation()     const { return getUniformLocation(UNIFORM_AMBIENT_COLOR); }
 	int getAmbientLightIntensityUniformLocation() const { return getUniformLocation(UNIFORM_AMBIENT_INTENSITY); }
 
 	// Attributes
 	int getAttributeLocation(std::string attributeName) const;
 	void setAttributeLocation(std::string attribName, int id);
 
-	int getPositionAttributeLocation() const		{ return getAttributeLocation(ATTRIBUTE_POSITION);		}
-	int getNormalAttributeLocation() const			{ return getAttributeLocation(ATTRIBUTE_NORMAL);		}
-	int getUVAttributeLocation() const				{ return getAttributeLocation(ATTRIBUTE_UV);			}
-	int getColorAttributeLocation() const			{ return getAttributeLocation(ATTRIBUTE_COLOR);			}
-    int getMVPMatAttributeLocation() const          { return getAttributeLocation(ATTRIBUTE_INSTANCING_MVP_MAT4);   }
-	int getWorldMatAttributeLocation() const        { return getAttributeLocation(ATTRIBUTE_INSTANCING_WORLD_MAT4); }	
+	int getPositionAttributeLocation() const { return getAttributeLocation(ATTRIBUTE_POSITION); }
+	int getNormalAttributeLocation() const { return getAttributeLocation(ATTRIBUTE_NORMAL); }
+	int getUVAttributeLocation() const { return getAttributeLocation(ATTRIBUTE_UV); }
+	int getColorAttributeLocation() const { return getAttributeLocation(ATTRIBUTE_COLOR); }
+	int getMVPMatAttributeLocation() const { return getAttributeLocation(ATTRIBUTE_INSTANCING_MVP_MAT4); }
+	int getWorldMatAttributeLocation() const { return getAttributeLocation(ATTRIBUTE_INSTANCING_WORLD_MAT4); }
 };
 
 

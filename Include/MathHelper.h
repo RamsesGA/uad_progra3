@@ -13,8 +13,8 @@ namespace MathHelper
 #define PI_OVER_180 3.14159f / 180.0f
 
 	/*
-     *
-     */
+	 *
+	 */
 	struct Matrix4
 	{
 		Matrix4()
@@ -45,9 +45,9 @@ namespace MathHelper
 	inline static Matrix4 IdentityMatrix()
 	{
 		return Matrix4(1.0f, 0.0f, 0.0f, 0.0f,
-            		   0.0f, 1.0f, 0.0f, 0.0f,
-			           0.0f, 0.0f, 1.0f, 0.0f,
-			           0.0f, 0.0f, 0.0f, 1.0f);
+			0.0f, 1.0f, 0.0f, 0.0f,
+			0.0f, 0.0f, 1.0f, 0.0f,
+			0.0f, 0.0f, 0.0f, 1.0f);
 	}
 
 	/*
@@ -78,21 +78,21 @@ namespace MathHelper
 	/*
 	 * 9.005 Are OpenGL matrices column-major or row-major?
 	 *
-     * For programming purposes, OpenGL matrices are 16-value arrays with base vectors laid out contiguously in memory. 
-     * The translation components occupy the 13th, 14th, and 15th elements of the 16-element matrix, 
-     * where indices are numbered from 1 to 16 as described in section 2.11.2 of the OpenGL 2.1 Specification.
+	 * For programming purposes, OpenGL matrices are 16-value arrays with base vectors laid out contiguously in memory.
+	 * The translation components occupy the 13th, 14th, and 15th elements of the 16-element matrix,
+	 * where indices are numbered from 1 to 16 as described in section 2.11.2 of the OpenGL 2.1 Specification.
 	 *
-     * Column-major versus row-major is purely a notational convention. 
-     * Note that post-multiplying with column-major matrices produces the same result as pre-multiplying with row-major matrices. 
-     * The OpenGL Specification and the OpenGL Reference Manual both use column-major notation. You can use any notation, 
-     * as long as it's clearly stated.
+	 * Column-major versus row-major is purely a notational convention.
+	 * Note that post-multiplying with column-major matrices produces the same result as pre-multiplying with row-major matrices.
+	 * The OpenGL Specification and the OpenGL Reference Manual both use column-major notation. You can use any notation,
+	 * as long as it's clearly stated.
 	 *
-     * Sadly, the use of column-major format in the spec and blue book has resulted in endless confusion 
-     * in the OpenGL programming community. Column-major notation suggests that matrices are not laid out in memory 
-     * as a programmer would expect.
+	 * Sadly, the use of column-major format in the spec and blue book has resulted in endless confusion
+	 * in the OpenGL programming community. Column-major notation suggests that matrices are not laid out in memory
+	 * as a programmer would expect.
 	 *
 	 * Rx = |    1     0     0    |
-	 *      |    0   cos@ -sin@   |  
+	 *      |    0   cos@ -sin@   |
 	 *      |    0   sin@  cos@   |
 	 *
 	 * Ry = |  cos@    0   sin@   |
@@ -115,10 +115,10 @@ namespace MathHelper
 
 		// NOTE: Remember this needs to be a transposed
 		Matrix4 rX(
-			1.0f, 0.0f,    0.0f,   0.0f,
-			0.0f, cosine, -sine,   0.0f,
-			0.0f, sine,    cosine, 0.0f,
-			0.0f, 0.0f,    0.0f,   1.0f);
+			1.0f, 0.0f, 0.0f, 0.0f,
+			0.0f, cosine, -sine, 0.0f,
+			0.0f, sine, cosine, 0.0f,
+			0.0f, 0.0f, 0.0f, 1.0f);
 
 		return Transpose(rX);
 	}
@@ -133,10 +133,10 @@ namespace MathHelper
 
 		// NOTE: Remember this needs to be a transposed
 		Matrix4 rY(
-			cosine, 0.0f, sine,   0.0f,
-			0.0f,   1.0f, 0.0f,   0.0f,
-			-sine,  0.0f, cosine, 0.0f,
-			0.0f,   0.0f, 0.0f,   1.0f);
+			cosine, 0.0f, sine, 0.0f,
+			0.0f, 1.0f, 0.0f, 0.0f,
+			-sine, 0.0f, cosine, 0.0f,
+			0.0f, 0.0f, 0.0f, 1.0f);
 
 		return Transpose(rY);
 	}
@@ -151,10 +151,10 @@ namespace MathHelper
 
 		// NOTE: Remember this needs to be a transposed
 		Matrix4 rZ(
-			cosine, -sine,   0.0f, 0.0f,
-			sine,    cosine, 0.0f, 0.0f,
-			0.0f,    0.0f,   0.0f, 0.0f,
-			0.0f,    0.0f,   0.0f, 1.0f);
+			cosine, -sine, 0.0f, 0.0f,
+			sine, cosine, 0.0f, 0.0f,
+			0.0f, 0.0f, 0.0f, 0.0f,
+			0.0f, 0.0f, 0.0f, 1.0f);
 
 		return Transpose(rZ);
 	}
@@ -166,10 +166,10 @@ namespace MathHelper
 	{
 		// Transposing this matrix looks the same
 		return Matrix4(
-			sx,    0.0f,  0.0f,  0.0f,
-			0.0f,  sy,    0.0f,  0.0f,
-			0.0f,  0.0f,  sz,    0.0f,
-			0.0f,  0.0f,  0.0f,  1.0f);
+			sx, 0.0f, 0.0f, 0.0f,
+			0.0f, sy, 0.0f, 0.0f,
+			0.0f, 0.0f, sz, 0.0f,
+			0.0f, 0.0f, 0.0f, 1.0f);
 	}
 
 	/*
@@ -266,18 +266,18 @@ namespace MathHelper
 
 		// Remember to transpose
 		Matrix4 ortho(
-			2.0f  / (right - left),  0.0f,                    0.0f,                             -((right + left) /(right - left)),
-			0.0f,                    2.0f  / (top - bottom),  0.0f,                             -((top + bottom) / (top - bottom)),
-			0.0f,                    0.0f,                   -2.0f / (far_plane - near_plane), -((far_plane + near_plane) / (far_plane - near_plane)),
-			0.0f,                    0.0f,                    0.0f,                               1.0f
+			2.0f / (right - left), 0.0f, 0.0f, -((right + left) / (right - left)),
+			0.0f, 2.0f / (top - bottom), 0.0f, -((top + bottom) / (top - bottom)),
+			0.0f, 0.0f, -2.0f / (far_plane - near_plane), -((far_plane + near_plane) / (far_plane - near_plane)),
+			0.0f, 0.0f, 0.0f, 1.0f
 		);
 
 		return Transpose(ortho);
 	}
 
-	/* 
+	/*
 	 * Return a Perspective Projection Matrix
-	 * 
+	 *
 	 * References:
 	 *   * http://www.songho.ca/opengl/gl_transform.html
 	 *   * https://solarianprogrammer.com/2013/05/22/opengl-101-matrices-projection-view-model/
@@ -285,28 +285,28 @@ namespace MathHelper
 	 *   * https://www.scratchapixel.com/lessons/3d-basic-rendering/perspective-and-orthographic-projection-matrix/opengl-perspective-projection-matrix
 	 *   * http://www.opengl-tutorial.org/es/beginners-tutorials/tutorial-3-matrices/
 	 *   * http://www.songho.ca/opengl/gl_lookattoaxes.html
-     *   * http://www.songho.ca/opengl/gl_anglestoaxes.html
-     *   * http://www.songho.ca/opengl/gl_matrix.html
+	 *   * http://www.songho.ca/opengl/gl_anglestoaxes.html
+	 *   * http://www.songho.ca/opengl/gl_matrix.html
 	 *   * http://www.opengl-tutorial.org/es/beginners-tutorials/tutorial-3-matrices/
 	 *   * https://learnopengl.com/Getting-started/Coordinate-Systems
-	 */ 
+	 */
 	inline static Matrix4 PerspectiveProjectionMatrix(
 		const float &angleOfView,  // Angle of view in degrees
 		const float &aspectRatio,  // Aspect ratio (width/height of the framebuffer, not the window)
 		const float &near_plane,   // Near plane
 		const float &far_plane)    // Far plane
 	{
-		float top    = tanf(angleOfView * 0.5f * PI_OVER_180) * near_plane;
+		float top = tanf(angleOfView * 0.5f * PI_OVER_180) * near_plane;
 		float bottom = -top;
-		float right  = top * aspectRatio;
-		float left   = -right;
+		float right = top * aspectRatio;
+		float left = -right;
 
 		// Remember to transpose
 		Matrix4 proj(
-			(2.0f * near_plane) / (right - left),  0.0f,                                (right + left) / (right - left),                        0.0f,
-			0.0f,                                 (2.0f * near_plane) / (top - bottom), (top + bottom) / (top - bottom),                        0.0f,
-			0.0f,                                  0.0f,                                -((far_plane + near_plane) / (far_plane - near_plane)), -((2.0f * far_plane * near_plane) / (far_plane - near_plane)),
-			0.0f,                                  0.0f,                                -1.0f,                                                  0.0f
+			(2.0f * near_plane) / (right - left), 0.0f, (right + left) / (right - left), 0.0f,
+			0.0f, (2.0f * near_plane) / (top - bottom), (top + bottom) / (top - bottom), 0.0f,
+			0.0f, 0.0f, -((far_plane + near_plane) / (far_plane - near_plane)), -((2.0f * far_plane * near_plane) / (far_plane - near_plane)),
+			0.0f, 0.0f, -1.0f, 0.0f
 		);
 
 		return Transpose(proj);
@@ -337,10 +337,10 @@ namespace MathHelper
 		float inverseTranslateY = -(up.X      * camEyePos.X) - (up.Y      * camEyePos.Y) - (up.Z      * camEyePos.Z);
 		float inverseTranslateZ = -(forward.X * camEyePos.X) - (forward.Y * camEyePos.Y) - (forward.Z * camEyePos.Z);
 
-		Matrix4 view(left.X,    left.Y,    left.Z,    inverseTranslateX,
-		             up.X,      up.Y,      up.Z,      inverseTranslateY,
-			         forward.X, forward.Y, forward.Z, inverseTranslateZ,
-			         0.0f,      0.0f,      0.0f,      1.0f);
+		Matrix4 view(left.X, left.Y, left.Z, inverseTranslateX,
+			up.X, up.Y, up.Z, inverseTranslateY,
+			forward.X, forward.Y, forward.Z, inverseTranslateZ,
+			0.0f, 0.0f, 0.0f, 1.0f);
 
 		return Transpose(view);
 	}
@@ -365,9 +365,9 @@ namespace MathHelper
 			0.0f, 0.0f, 0.0f, 1.0f);
 	}
 
-	 /*
-	  * A simple model matrix with a rotation around Y and a translation
-	  */
+	/*
+	 * A simple model matrix with a rotation around Y and a translation
+	 */
 	inline static Matrix4 SimpleModelMatrixRotationTranslation(float angleInRadians, CVector3 translation)
 	{
 		float cosine = cosf(angleInRadians);
@@ -381,7 +381,7 @@ namespace MathHelper
 	}
 
 	/*
-	 * 
+	 *
 	 */
 	inline static Matrix4 SimpleViewMatrix(float cameraZDistance)
 	{
@@ -390,10 +390,10 @@ namespace MathHelper
 		// Camera Up is hardcoded to (0, 1, 0).
 		const float sqrt3over2 = 0.86603f;
 
-		Matrix4 vm(1.0f,  0.0f,      0.0f,            0.0f,
-		           0.0f, sqrt3over2, 0.5f,            0.0f,
-		           0.0f, -0.5f,      sqrt3over2,      0.0f,
-		           0.0f,  0.0f,     -cameraZDistance, 1.0f);
+		Matrix4 vm(1.0f, 0.0f, 0.0f, 0.0f,
+			0.0f, sqrt3over2, 0.5f, 0.0f,
+			0.0f, -0.5f, sqrt3over2, 0.0f,
+			0.0f, 0.0f, -cameraZDistance, 1.0f);
 
 		// ALREADY TRANSPOSED
 		return vm;
@@ -408,10 +408,10 @@ namespace MathHelper
 		// FoV is hardcoded to pi/3.
 		const float cotangent = 1 / tanf(3.14159f / 6.0f);
 
-		Matrix4 proj(cotangent / aspectRatio, 0.0f,      0.0f,                   0.0f,
-			         0.0f,                    cotangent, 0.0f,                   0.0f,
-			         0.0f,                    0.0f,     -50.0f / (50.0f - 1.0f), (-50.0f * 1.0f) / (50.0f - 1.0f),
-			         0.0f,                    0.0f,     -1.0f,                   0.0f);
+		Matrix4 proj(cotangent / aspectRatio, 0.0f, 0.0f, 0.0f,
+			0.0f, cotangent, 0.0f, 0.0f,
+			0.0f, 0.0f, -50.0f / (50.0f - 1.0f), (-50.0f * 1.0f) / (50.0f - 1.0f),
+			0.0f, 0.0f, -1.0f, 0.0f);
 
 		return Transpose(proj);
 	}
@@ -423,9 +423,9 @@ namespace MathHelper
 	{
 		os << std::fixed << std::setprecision(4);
 		os << "[" << std::setw(10) << m.m[0][0] << " " << std::setw(10) << m.m[0][1] << " " << std::setw(10) << m.m[0][2] << " " << std::setw(10) << m.m[0][3] << "]\n"
-		   << "[" << std::setw(10) << m.m[1][0] << " " << std::setw(10) << m.m[1][1] << " " << std::setw(10) << m.m[1][2] << " " << std::setw(10) << m.m[1][3] << "]\n"
-		   << "[" << std::setw(10) << m.m[2][0] << " " << std::setw(10) << m.m[2][1] << " " << std::setw(10) << m.m[2][2] << " " << std::setw(10) << m.m[2][3] << "]\n"
-		   << "[" << std::setw(10) << m.m[3][0] << " " << std::setw(10) << m.m[3][1] << " " << std::setw(10) << m.m[3][2] << " " << std::setw(10) << m.m[3][3] << "]\n";
+			<< "[" << std::setw(10) << m.m[1][0] << " " << std::setw(10) << m.m[1][1] << " " << std::setw(10) << m.m[1][2] << " " << std::setw(10) << m.m[1][3] << "]\n"
+			<< "[" << std::setw(10) << m.m[2][0] << " " << std::setw(10) << m.m[2][1] << " " << std::setw(10) << m.m[2][2] << " " << std::setw(10) << m.m[2][3] << "]\n"
+			<< "[" << std::setw(10) << m.m[3][0] << " " << std::setw(10) << m.m[3][1] << " " << std::setw(10) << m.m[3][2] << " " << std::setw(10) << m.m[3][3] << "]\n";
 		os << std::resetiosflags(std::ios_base::fixed | std::ios_base::floatfield);
 		return os;
 	}
@@ -443,7 +443,6 @@ float scale = tan(angleOfView * 0.5 * M_PI / 180) * n;
 r = imageAspectRatio * scale, l = -r;
 t = scale, b = -t;
 }
-
 // set the OpenGL perspective projection matrix
 void glFrustum(
 const float &b, const float &t, const float &l, const float &r,
@@ -455,23 +454,19 @@ M[0][0] = 2 * n / (r - l);
 M[0][1] = 0;
 M[0][2] = 0;
 M[0][3] = 0;
-
 M[1][0] = 0;
 M[1][1] = 2 * n / (t - b);
 M[1][2] = 0;
 M[1][3] = 0;
-
 M[2][0] = (r + l) / (r - l);
 M[2][1] = (t + b) / (t - b);
 M[2][2] = -(f + n) / (f - n);
 M[2][3] = -1;
-
 M[3][0] = 0;
 M[3][1] = 0;
 M[3][2] = -2 * f * n / (f - n);
 M[3][3] = 0;
 }
-
 void multPointMatrix(const Vec3f &in, Vec3f &out, const Matrix44f &M)
 {
 //out = in * Mproj;
@@ -479,7 +474,6 @@ out.x   = in.x * M[0][0] + in.y * M[1][0] + in.z * M[2][0] +  in.z = 1  M[3][0];
 out.y = in.x * M[0][1] + in.y * M[1][1] + in.z * M[2][1] +  in.z = 1  M[3][1];
 out.z = in.x * M[0][2] + in.y * M[1][2] + in.z * M[2][2] +  in.z = 1  M[3][2];
 float w = in.x * M[0][3] + in.y * M[1][3] + in.z * M[2][3] +  in.z = 1  M[3][3];
-
 // normalize if w is different than 1 (convert from homogeneous to Cartesian coordinates)
 if (w != 1) {
 	out.x /= w;

@@ -34,9 +34,9 @@ CLight::CLight()
  */
 CLight::CLight(float red, float green, float blue, float ambientIntensity)
 {
-	red   = clampColor<float>(0.0f, 1.0f, red);
+	red = clampColor<float>(0.0f, 1.0f, red);
 	green = clampColor<float>(0.0f, 1.0f, green);
-	blue  = clampColor<float>(0.0f, 1.0f, blue);
+	blue = clampColor<float>(0.0f, 1.0f, blue);
 	ambientIntensity = clampColor<float>(0.0f, 1.0f, ambientIntensity);
 
 	m_color.X = red;
@@ -50,14 +50,13 @@ CLight::CLight(float red, float green, float blue, float ambientIntensity)
  */
 CLight::CLight(int rgb_red, int rgb_green, int rgb_blue, float ambientIntensity)
 {
-	rgb_red   = clampColor<int>(0, 256, rgb_red);
+	rgb_red = clampColor<int>(0, 256, rgb_red);
 	rgb_green = clampColor<int>(0, 256, rgb_green);
-	rgb_blue  = clampColor<int>(0, 256, rgb_blue);
+	rgb_blue = clampColor<int>(0, 256, rgb_blue);
 	ambientIntensity = clampColor<float>(0.0f, 1.0f, ambientIntensity);
 
-	m_color.X = rgb_red   / 256.0f;
+	m_color.X = rgb_red / 256.0f;
 	m_color.Y = rgb_green / 256.0f;
-	m_color.Z = rgb_blue  / 256.0f;
+	m_color.Z = rgb_blue / 256.0f;
 	m_ambientIntensity = ambientIntensity;
 }
-

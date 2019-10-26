@@ -20,9 +20,9 @@ using namespace std;
  *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-/*
-*/
-COpenGLRenderer::COpenGLRenderer():
+ /*
+ */
+COpenGLRenderer::COpenGLRenderer() :
 	m_OpenGLError{ false },
 	m_cameraDistance{ MIN_CAMERA_DISTANCE },
 	m_frameBufferWidth{ 0 },
@@ -209,7 +209,7 @@ bool COpenGLRenderer::createShaderProgram(std::string shaderProgramName, unsigne
 		{
 			// Create new shader program
 			COpenGLShaderProgram *newShaderProgramWrapper = new COpenGLShaderProgram();
-			
+
 			// Set shader program Id
 			newShaderProgramWrapper->setShaderProgramID(*shaderProgramId);
 
@@ -251,7 +251,7 @@ bool COpenGLRenderer::createShaderProgram(std::string shaderProgramName, unsigne
 				{
 					//cout << "WARNING: Unable to get attribute location for: " << m_expectedAttributesInShader[idx].c_str() << endl;
 				}
-			}	
+			}
 
 			// Insert shader program in map
 			m_shaderProgramWrappers.insert(std::make_pair(*shaderProgramId, newShaderProgramWrapper));
@@ -296,7 +296,7 @@ bool COpenGLRenderer::deleteShaderProgram(unsigned int *shaderProgramId)
 
 /*
 */
-bool COpenGLRenderer::useShaderProgram(const unsigned int * const shaderProgramId) 
+bool COpenGLRenderer::useShaderProgram(const unsigned int * const shaderProgramId)
 {
 	if (shaderProgramId != nullptr && *shaderProgramId > 0)
 	{
@@ -305,6 +305,7 @@ bool COpenGLRenderer::useShaderProgram(const unsigned int * const shaderProgramI
 
 		if (it != m_shaderProgramWrappers.end() && it->second != nullptr)
 		{
+			glUseProgram((GLuint)*shaderProgramId);
 			m_activeShaderProgram = shaderProgramId;
 			m_activeShaderProgramWrapper = it->second;
 
@@ -407,7 +408,7 @@ void COpenGLRenderer::setCurrentShaderProjectionMatrix(MathHelper::Matrix4 *proj
 void COpenGLRenderer::setCurrentShaderTexture(unsigned int *textureObjectId)
 {
 	// Set the texture sampler uniform
-	if (textureObjectId != nullptr && 
+	if (textureObjectId != nullptr &&
 		*textureObjectId > 0 &&
 		m_activeShaderProgramWrapper != nullptr &&
 		m_activeShaderProgramWrapper->getTextureSamplerUniformLocation() >= 0)
@@ -465,7 +466,7 @@ bool COpenGLRenderer::createTextureObject(unsigned int *textureObjectId, unsigne
 
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		
+
 		// Check for OpenGL errors
 		m_OpenGLError = checkOpenGLError("COpenGLRenderer::createTextureObject");
 
@@ -750,14 +751,14 @@ bool COpenGLRenderer::allocateGraphicsMemoryForObject(
 	}
 
 	if (vertexArrayObjectID == nullptr
-		|| vertices == nullptr 
-		|| indicesVertices == nullptr 
+		|| vertices == nullptr
+		|| indicesVertices == nullptr
 		|| !useShaderProgram(shaderProgramId))
 	{
 		cout << "ERROR: Cannot use shader program id: " << *shaderProgramId << endl;
 		return false;
 	}
-	
+
 	COpenGLShaderProgram* shaderProgramWrapper = getShaderProgramWrapper(*shaderProgramId);
 	if (shaderProgramWrapper == nullptr)
 	{
@@ -806,7 +807,7 @@ bool COpenGLRenderer::generateRenderGeometry(
 	GLfloat *normals, int numNormals,
 	GLfloat *UVcoords, int numUVCoords,
 	int numFaces,
-	unsigned short *indicesVertices, 
+	unsigned short *indicesVertices,
 	unsigned short *indicesNormals,
 	unsigned short *indicesUVCoords,
 	GLfloat *finalVertices,
@@ -841,25 +842,25 @@ bool COpenGLRenderer::generateRenderGeometry(
 	*numTriangles = numFaces;
 
 	// Iterate over each face
-	for (int i = 0; i < (numFaces * 3); i+=3)
+	for (int i = 0; i < (numFaces * 3); i += 3)
 	{
 		// Each face has 3 vertex indices
 		// Each vertex has 3 components: x, y, z
 
 		// Vertex indices for this face
 		vIndices[0] = indicesVertices[i];   // Vertex index 1 
-		vIndices[1] = indicesVertices[i+1]; // Vertex index 2
-		vIndices[2] = indicesVertices[i+2]; // Vertex index 3
+		vIndices[1] = indicesVertices[i + 1]; // Vertex index 2
+		vIndices[2] = indicesVertices[i + 2]; // Vertex index 3
 
 		// Normal indices for this face
 		nIndices[0] = indicesNormals[i];    // Normal index 1
-		nIndices[1] = indicesNormals[i+1];  // Normal index 2
-		nIndices[2] = indicesNormals[i+2];  // Normal index 3
+		nIndices[1] = indicesNormals[i + 1];  // Normal index 2
+		nIndices[2] = indicesNormals[i + 2];  // Normal index 3
 
 		// UVCoord indices for this face
 		uIndices[0] = indicesUVCoords[i];   // UV coord index 1
-		uIndices[1] = indicesUVCoords[i+1]; // UV coord index 2
- 		uIndices[2] = indicesUVCoords[i+2]; // UV coord index 3
+		uIndices[1] = indicesUVCoords[i + 1]; // UV coord index 2
+		uIndices[2] = indicesUVCoords[i + 2]; // UV coord index 3
 
 		if (((vIndices[0] * 3) + 2) >= (numVertices * 3)
 			|| ((vIndices[1] * 3) + 2) >= (numVertices * 3)
@@ -1015,19 +1016,15 @@ bool COpenGLRenderer::renderObject(
 			glUseProgram(0);
 			return false;
 		}
-
 		COpenGLShaderProgram* shaderProgramWrapper = getShaderProgramWrapper(*shaderProgramId);
 		if (shaderProgramWrapper == nullptr)
 		{
 			cout << "ERROR: Could not find shader program wrapper for shader program id: " << *shaderProgramId << endl;
 			return false;
 		}
-
 		GLenum drawingPrimitiveMode = primitiveModeToGLEnum(mode);
-
 		// Bind vertex array object for this 3D object
 		glBindVertexArray((GLuint)*vertexArrayObjectId);
-
 		// ====== Update Model View Projection matrices and pass them to the shader====================================
 		// This needs to be done per-frame because the values change over time
 		if (shaderProgramWrapper->getModelMatrixUniformLocation() >= 0)
@@ -1042,24 +1039,20 @@ bool COpenGLRenderer::renderObject(
 				glUniformMatrix4fv(shaderProgramWrapper->getModelMatrixUniformLocation(), 1, GL_FALSE, &(objectTransformation->m[0][0]));
 			}
 		}
-
 		if (shaderProgramWrapper->getViewMatrixUniformLocation() >= 0)
 		{
 			MathHelper::Matrix4 viewMatrix = MathHelper::SimpleViewMatrix(m_cameraDistance);
 			glUniformMatrix4fv(shaderProgramWrapper->getViewMatrixUniformLocation(), 1, GL_FALSE, &(viewMatrix.m[0][0]));
 		}
-
 		if (shaderProgramWrapper->getProjectionMatrixUniformLocation() >= 0)
 		{
 			MathHelper::Matrix4 projectionMatrix = MathHelper::SimpleProjectionMatrix(float(m_frameBufferWidth) / float(m_frameBufferHeight));
 			glUniformMatrix4fv(shaderProgramWrapper->getProjectionMatrixUniformLocation(), 1, GL_FALSE, &(projectionMatrix.m[0][0]));
 		}
-
 		if (shaderProgramWrapper->getColorUniformLocation() >= 0)
 		{
 			glUniform3f(shaderProgramWrapper->getColorUniformLocation(), objectColor[0], objectColor[1], objectColor[2]);
 		}
-
 		// Set the texture sampler uniform
 		if (textureObjectId != nullptr && shaderProgramWrapper->getTextureSamplerUniformLocation() >= 0 && *textureObjectId > 0)
 		{
@@ -1073,7 +1066,6 @@ bool COpenGLRenderer::renderObject(
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, 0);
 		}
-
 		if (drawIndexedPrimitives)
 		{
 			glDrawElements(
@@ -1081,7 +1073,6 @@ bool COpenGLRenderer::renderObject(
 				numFaces * 3,			// Number of indices
 				GL_UNSIGNED_SHORT,		// Data type
 				0);
-
 			// Check for OpenGL errors
 			m_OpenGLError = checkOpenGLError("glDrawElements()");
 		}
@@ -1093,21 +1084,16 @@ bool COpenGLRenderer::renderObject(
 				0,
 				numFaces * 3 // 3 indices per face
 			);
-
 			// Check for OpenGL errors
 			m_OpenGLError = checkOpenGLError("glDrawArrays()");
 		}
-
 		// Unbind vertex array object
 		glBindVertexArray(0);
-
 		// Unbind shader program
 		glUseProgram(0);
-
 		if (!m_OpenGLError)
 			return true;
 	}
-
 	return false; */
 
 	return renderObject(
@@ -1142,7 +1128,7 @@ bool COpenGLRenderer::renderObject(
 		&& vertexArrayObjectId != nullptr
 		&& *vertexArrayObjectId > 0
 		&& numFaces > 0
-		&& objectColor != nullptr 
+		&& objectColor != nullptr
 		&& m_activeShaderProgram != nullptr
 		&& m_activeShaderProgramWrapper != nullptr
 		&& !m_OpenGLError)
@@ -1268,8 +1254,8 @@ bool COpenGLRenderer::renderObject(
  * Calling this method assumes the following methods have been called:
  * ------------------------------------------------------------------
  *
- * 1 - useShaderProgram( ) 
- * 2 - setCurrentVertexArrayObjectID( ) 
+ * 1 - useShaderProgram( )
+ * 2 - setCurrentVertexArrayObjectID( )
  * 3 - setCurrentShaderObjectColor( )
  * 4 - setCurrentShaderViewMatrix( )
  * 5 - setCurrentShaderProjectionMatrix( )
@@ -1344,7 +1330,7 @@ bool COpenGLRenderer::renderObjectNew(
 bool COpenGLRenderer::renderMenuItem(
 	unsigned int *shaderProgramId,
 	unsigned int *textureObjectId,
-	unsigned int *vertexArrayObjectId, 
+	unsigned int *vertexArrayObjectId,
 	GLfloat *menuItemColor
 )
 {
@@ -1428,7 +1414,7 @@ void COpenGLRenderer::initializeColorCube()
 	std::string resourceFilenameFS;
 
 	// If resource files cannot be found, return
-	if (!CWideStringHelper::GetResourceFullPath(VERTEX_SHADER_3D_OBJECT_COLOR,   wresourceFilenameVS, resourceFilenameVS) ||
+	if (!CWideStringHelper::GetResourceFullPath(VERTEX_SHADER_3D_OBJECT_COLOR, wresourceFilenameVS, resourceFilenameVS) ||
 		!CWideStringHelper::GetResourceFullPath(FRAGMENT_SHADER_3D_OBJECT_COLOR, wresourceFilenameFS, resourceFilenameFS))
 	{
 		cout << "ERROR: Unable to find one or more resources: " << endl;
@@ -1610,10 +1596,10 @@ void COpenGLRenderer::initializeTexturedCube()
 			-1.0f, -1.0f, -1.0f,  // -x, -y, -z BOTTOM LEFT, BACK   #8
 			 1.0f, -1.0f, -1.0f,  // +x, -y, -z BOTTOM RIGHT, BACK  #9
 
-		    -1.0f, -1.0f,  1.0f,  // -x, -y, +z BOTTOM LEFT, FRONT  #10
+			-1.0f, -1.0f,  1.0f,  // -x, -y, +z BOTTOM LEFT, FRONT  #10
 			 1.0f, -1.0f,  1.0f,  // +x, -y, +z BOTTOM RIGHT, FRONT #11
 
-            -1.0f, -1.0f, -1.0f,  // -x, -y, -z BOTTOM LEFT, BACK   #12
+			-1.0f, -1.0f, -1.0f,  // -x, -y, -z BOTTOM LEFT, BACK   #12
 			-1.0f, -1.0f,  1.0f   // -x, -y, +z BOTTOM LEFT, FRONT  #13
 		};
 
@@ -1635,11 +1621,11 @@ void COpenGLRenderer::initializeTexturedCube()
 
 			1.0f, 1.0f, 1.0f, // -x, -y, -z BOTTOM LEFT, BACK   #4
 			1.0f, 1.0f, 1.0f, // -x, -y, +z BOTTOM LEFT, FRONT  #5
-			
+
 			1.0f, 1.0f, 1.0f, // +x, -y, -z BOTTOM RIGHT, BACK  #6
 			1.0f, 1.0f, 1.0f, // +x, -y, +z BOTTOM RIGHT, FRONT #7
 
-            // DUPLICATE VERTICES
+			// DUPLICATE VERTICES
 			// -------------------
 			1.0f, 1.0f, 1.0f, // -x, -y, -z BOTTOM LEFT, BACK   #8
 			1.0f, 1.0f, 1.0f, // +x, -y, -z BOTTOM RIGHT, BACK  #9
@@ -1734,7 +1720,7 @@ void COpenGLRenderer::initializeTexturedCube()
 /*
 */
 bool COpenGLRenderer::allocateGraphicsMemoryForMenuItem(
-	float topX, 
+	float topX,
 	float topY,
 	float menuItemHeight,
 	float *uvCoords,
@@ -1893,7 +1879,7 @@ void COpenGLRenderer::renderColorCube(MathHelper::Matrix4 *objectTransformation)
 		}
 
 		// ====== DRAW ================================================================================================
-		
+
 		// Draw 
 		glDrawElements(
 			GL_TRIANGLES,      // Triangles
@@ -1904,7 +1890,7 @@ void COpenGLRenderer::renderColorCube(MathHelper::Matrix4 *objectTransformation)
 		// Check for OpenGL errors
 		m_OpenGLError = checkOpenGLError("glDrawElements(GL_TRIANGLES)");
 		if (m_OpenGLError)
-			return;		
+			return;
 
 		// Unbind vertex array
 		glBindVertexArray(0);
@@ -1924,7 +1910,7 @@ void COpenGLRenderer::renderColorCube(
 {
 	if (!m_OpenGLError
 		&& modelMatrix != nullptr
-		&& viewMatrix != nullptr 
+		&& viewMatrix != nullptr
 		&& projectionMatrix != nullptr
 		&& m_activeShaderProgram != nullptr
 		&& m_activeShaderProgramWrapper != nullptr)
@@ -2084,7 +2070,7 @@ void COpenGLRenderer::renderTexturedCube(unsigned int cubeTextureID, MathHelper:
 /*
 */
 void COpenGLRenderer::renderTexturedCube(
-	unsigned int cubeTextureID, 
+	unsigned int cubeTextureID,
 	MathHelper::Matrix4 *modelMatrix,
 	MathHelper::Matrix4 *viewMatrix,
 	MathHelper::Matrix4 *projectionMatrix)
@@ -2180,7 +2166,7 @@ bool COpenGLRenderer::checkOpenGLError(char *operationAttempted)
 	// check OpenGL error
 	GLenum err;
 	while ((err = glGetError()) != GL_NO_ERROR) {
-		cerr << "OpenGL error on " <<  operationAttempted << ": " << err << endl;
+		cerr << "OpenGL error on " << operationAttempted << ": " << err << endl;
 		errorDetected = true;
 	}
 
@@ -2205,12 +2191,12 @@ void COpenGLRenderer::simpleCameraZoom(float direction)
 
 /*
 */
-void COpenGLRenderer::deleteTexture(unsigned int *id) 
+void COpenGLRenderer::deleteTexture(unsigned int *id)
 {
-	if (id != NULL && *id > 0) 
-	{ 
+	if (id != NULL && *id > 0)
+	{
 		glDeleteTextures(1, id);
-	} 
+	}
 }
 
 /*
@@ -2224,7 +2210,7 @@ void COpenGLRenderer::drawString(unsigned int *textureObjectId, std::string &tex
 */
 bool COpenGLRenderer::isDebugContextEnabled() const
 {
-	GLint flags; 
+	GLint flags;
 	glGetIntegerv(GL_CONTEXT_FLAGS, &flags);
 	if (flags & GL_CONTEXT_FLAG_DEBUG_BIT)
 	{
@@ -2238,7 +2224,7 @@ bool COpenGLRenderer::isDebugContextEnabled() const
 */
 void COpenGLRenderer::activateOpenGLDebugging()
 {
-// Only enable OpenGL debugging if compiling for a DEBUG configuration
+	// Only enable OpenGL debugging if compiling for a DEBUG configuration
 #ifdef _DEBUG
 	/* Check if a debug context could be created when creating the rendering context */
 	if (isDebugContextEnabled())
@@ -2266,39 +2252,39 @@ void APIENTRY COpenGLRenderer::debugOutputCallback(
 	if (id == 131169 || id == 131185 || id == 131218 || id == 131204) return;
 
 	std::cout << "---------------------" << std::endl;
-	std::cout << "OpenGL error ocurred:" << std::endl; 
+	std::cout << "OpenGL error ocurred:" << std::endl;
 	std::cout << "---------------------" << std::endl;
 	std::cout << "Debug message (" << id << "): " << message << std::endl;
 
 	switch (source)
 	{
-		case GL_DEBUG_SOURCE_API:             std::cout << "Source: API"; break;
-		case GL_DEBUG_SOURCE_WINDOW_SYSTEM:   std::cout << "Source: Window System"; break;
-		case GL_DEBUG_SOURCE_SHADER_COMPILER: std::cout << "Source: Shader Compiler"; break;
-		case GL_DEBUG_SOURCE_THIRD_PARTY:     std::cout << "Source: Third Party"; break;
-		case GL_DEBUG_SOURCE_APPLICATION:     std::cout << "Source: Application"; break;
-		case GL_DEBUG_SOURCE_OTHER:           std::cout << "Source: Other"; break;
+	case GL_DEBUG_SOURCE_API:             std::cout << "Source: API"; break;
+	case GL_DEBUG_SOURCE_WINDOW_SYSTEM:   std::cout << "Source: Window System"; break;
+	case GL_DEBUG_SOURCE_SHADER_COMPILER: std::cout << "Source: Shader Compiler"; break;
+	case GL_DEBUG_SOURCE_THIRD_PARTY:     std::cout << "Source: Third Party"; break;
+	case GL_DEBUG_SOURCE_APPLICATION:     std::cout << "Source: Application"; break;
+	case GL_DEBUG_SOURCE_OTHER:           std::cout << "Source: Other"; break;
 	} std::cout << std::endl;
 
 	switch (type)
 	{
-		case GL_DEBUG_TYPE_ERROR:               std::cout << "Type: Error"; break;
-		case GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR: std::cout << "Type: Deprecated Behaviour"; break;
-		case GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR:  std::cout << "Type: Undefined Behaviour"; break;
-		case GL_DEBUG_TYPE_PORTABILITY:         std::cout << "Type: Portability"; break;
-		case GL_DEBUG_TYPE_PERFORMANCE:         std::cout << "Type: Performance"; break;
-		case GL_DEBUG_TYPE_MARKER:              std::cout << "Type: Marker"; break;
-		case GL_DEBUG_TYPE_PUSH_GROUP:          std::cout << "Type: Push Group"; break;
-		case GL_DEBUG_TYPE_POP_GROUP:           std::cout << "Type: Pop Group"; break;
-		case GL_DEBUG_TYPE_OTHER:               std::cout << "Type: Other"; break;
+	case GL_DEBUG_TYPE_ERROR:               std::cout << "Type: Error"; break;
+	case GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR: std::cout << "Type: Deprecated Behaviour"; break;
+	case GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR:  std::cout << "Type: Undefined Behaviour"; break;
+	case GL_DEBUG_TYPE_PORTABILITY:         std::cout << "Type: Portability"; break;
+	case GL_DEBUG_TYPE_PERFORMANCE:         std::cout << "Type: Performance"; break;
+	case GL_DEBUG_TYPE_MARKER:              std::cout << "Type: Marker"; break;
+	case GL_DEBUG_TYPE_PUSH_GROUP:          std::cout << "Type: Push Group"; break;
+	case GL_DEBUG_TYPE_POP_GROUP:           std::cout << "Type: Pop Group"; break;
+	case GL_DEBUG_TYPE_OTHER:               std::cout << "Type: Other"; break;
 	} std::cout << std::endl;
 
 	switch (severity)
 	{
-		case GL_DEBUG_SEVERITY_HIGH:         std::cout << "Severity: High"; break;
-		case GL_DEBUG_SEVERITY_MEDIUM:       std::cout << "Severity: Medium"; break;
-		case GL_DEBUG_SEVERITY_LOW:          std::cout << "Severity: Low"; break;
-		case GL_DEBUG_SEVERITY_NOTIFICATION: std::cout << "Severity: Notification"; break;
+	case GL_DEBUG_SEVERITY_HIGH:         std::cout << "Severity: High"; break;
+	case GL_DEBUG_SEVERITY_MEDIUM:       std::cout << "Severity: Medium"; break;
+	case GL_DEBUG_SEVERITY_LOW:          std::cout << "Severity: Low"; break;
+	case GL_DEBUG_SEVERITY_NOTIFICATION: std::cout << "Severity: Notification"; break;
 	} std::cout << std::endl;
 
 	std::cout << std::endl;
@@ -2312,46 +2298,46 @@ GLenum COpenGLRenderer::translateBlendMode(OPENGL_BLEND_MODE factor)
 
 	switch (factor)
 	{
-	case BLEND_ZERO: 
+	case BLEND_ZERO:
 		translatedValue = GL_ZERO;
 		break;
-	case BLEND_ONE: 
+	case BLEND_ONE:
 		translatedValue = GL_ONE;
 		break;
 	case BLEND_SRC_COLOR:
 		translatedValue = GL_SRC_COLOR;
 		break;
-	case BLEND_ONE_MINUS_SRC_COLOR: 
+	case BLEND_ONE_MINUS_SRC_COLOR:
 		translatedValue = GL_ONE_MINUS_SRC_COLOR;
 		break;
-	case BLEND_DST_COLOR: 
+	case BLEND_DST_COLOR:
 		translatedValue = GL_DST_COLOR;
 		break;
-	case BLEND_ONE_MINUS_DST_COLOR: 
+	case BLEND_ONE_MINUS_DST_COLOR:
 		translatedValue = GL_ONE_MINUS_DST_COLOR;
 		break;
-	case BLEND_SRC_ALPHA: 
+	case BLEND_SRC_ALPHA:
 		translatedValue = GL_SRC_ALPHA;
 		break;
-	case BLEND_ONE_MINUS_SRC_ALPHA: 
+	case BLEND_ONE_MINUS_SRC_ALPHA:
 		translatedValue = GL_ONE_MINUS_SRC_ALPHA;
 		break;
-	case BLEND_DST_ALPHA: 
+	case BLEND_DST_ALPHA:
 		translatedValue = GL_DST_ALPHA;
 		break;
-	case BLEND_ONE_MINUS_DST_ALPHA: 
+	case BLEND_ONE_MINUS_DST_ALPHA:
 		translatedValue = GL_ONE_MINUS_DST_ALPHA;
 		break;
-	case BLEND_CONSTANT_COLOR: 
+	case BLEND_CONSTANT_COLOR:
 		translatedValue = GL_CONSTANT_COLOR;
 		break;
-	case BLEND_ONE_MINUS_CONSTANT_COLOR: 
+	case BLEND_ONE_MINUS_CONSTANT_COLOR:
 		translatedValue = GL_ONE_MINUS_CONSTANT_COLOR;
 		break;
-	case BLEND_CONSTANT_ALPHA: 
+	case BLEND_CONSTANT_ALPHA:
 		translatedValue = GL_CONSTANT_ALPHA;
 		break;
-	case BLEND_ONE_MINUS_CONSTANT_ALPHA: 
+	case BLEND_ONE_MINUS_CONSTANT_ALPHA:
 		translatedValue = GL_ONE_MINUS_CONSTANT_ALPHA;
 		break;
 	default:
@@ -2431,7 +2417,7 @@ void COpenGLRenderer::getLineParameters(
 	float *tx, float *ty,     // core thinkness of a line
 	float *Rx, float *Ry,     // fading edge of a line
 	float *cx, float *cy      // cap of a line
-	)
+)
 {
 	float t, R, f;
 	f = w - static_cast<int>(w);
@@ -2443,12 +2429,12 @@ void COpenGLRenderer::getLineParameters(
 	}
 
 	// determine parameters t,R
-	if (w >= 0.0f && w < 1.0f) 
+	if (w >= 0.0f && w < 1.0f)
 	{
-		t = 0.05f; 
+		t = 0.05f;
 		R = 0.48f + 0.32f * (f);
 
-		if (!alphablend) 
+		if (!alphablend)
 		{
 			*Cr += 0.88f * (1.0f - f);
 			*Cg += 0.88f * (1.0f - f);
@@ -2457,37 +2443,37 @@ void COpenGLRenderer::getLineParameters(
 			if (*Cg > 1.0f) *Cg = 1.0f;
 			if (*Cb > 1.0f) *Cb = 1.0f;
 		}
-		else 
+		else
 		{
 			*A *= f;
 		}
 	}
-	else if (w >= 1.0f && w < 2.0f) 
+	else if (w >= 1.0f && w < 2.0f)
 	{
-		t = 0.05f + (f) * 0.33f; 
+		t = 0.05f + (f) * 0.33f;
 		R = 0.768f + 0.312f * (f);
 	}
-	else if (w >= 2.0f && w < 3.0f) 
+	else if (w >= 2.0f && w < 3.0f)
 	{
 		t = 0.38f + (f) * 0.58f;
 		R = 1.08f;
 	}
-	else if (w >= 3.0f && w < 4.0f) 
+	else if (w >= 3.0f && w < 4.0f)
 	{
 		t = 0.96f + (f) * 0.48f;
 		R = 1.08f;
 	}
-	else if (w >= 4.0f && w < 5.0f) 
+	else if (w >= 4.0f && w < 5.0f)
 	{
 		t = 1.44f + (f) * 0.46f;
 		R = 1.08f;
 	}
-	else if (w >= 5.0f && w < 6.0f) 
+	else if (w >= 5.0f && w < 6.0f)
 	{
 		t = 1.9f + (f) * 0.6f;
 		R = 1.08f;
 	}
-	else if (w >= 6.0f) 
+	else if (w >= 6.0f)
 	{
 		float ff = w - 6.0f;
 		t = 2.5f + ff * 0.50f;
@@ -2505,42 +2491,42 @@ void COpenGLRenderer::getLineParameters(
 	float dx = *x2 - *x1;
 	float dy = *y2 - *y1;
 
-	if (GET_ABS(dx) < ALW) 
+	if (GET_ABS(dx) < ALW)
 	{
 		//vertical
-		*tx = t; 
+		*tx = t;
 		*ty = 0.0f;
-		*Rx = R; 
+		*Rx = R;
 		*Ry = 0.0f;
 
-		if (w > 0.0f && w <= 1.0f) 
+		if (w > 0.0f && w <= 1.0f)
 		{
-			*tx = 0.5f; 
+			*tx = 0.5f;
 			*Rx = 0.0f;
 		}
 	}
-	else if (GET_ABS(dy) < ALW) 
+	else if (GET_ABS(dy) < ALW)
 	{
 		//horizontal
-		*tx = 0.0f; 
+		*tx = 0.0f;
 		*ty = t;
-		*Rx = 0.0f; 
+		*Rx = 0.0f;
 		*Ry = R;
 
-		if (w > 0.0f && w <= 1.0f) 
+		if (w > 0.0f && w <= 1.0f)
 		{
-			*ty = 0.5f; 
+			*ty = 0.5f;
 			*Ry = 0.0f;
 		}
 	}
-	else 
+	else
 	{
-		if (w < 3.0f) 
+		if (w < 3.0f)
 		{ //approximate to make things even faster
 			float m = dy / dx;
 
 			//and calculate tx,ty,Rx,Ry
-			if (m > -0.4142f && m <= 0.4142f) 
+			if (m > -0.4142f && m <= 0.4142f)
 			{
 				// -22.5< angle <= 22.5, approximate to 0 (degree)
 				*tx = t * 0.1f;
@@ -2556,7 +2542,7 @@ void COpenGLRenderer::getLineParameters(
 				*Rx = R * -0.7071f;
 				*Ry = R * 0.7071f;
 			}
-			else if (m > 2.4142f || m <= -2.4142f) 
+			else if (m > 2.4142f || m <= -2.4142f)
 			{
 				// 67.5 < angle <=112.5, approximate to 90 (degree)
 				*tx = t;
@@ -2572,31 +2558,31 @@ void COpenGLRenderer::getLineParameters(
 				*Rx = R * 0.7071f;
 				*Ry = R * 0.7071f;
 			}
-			else 
+			else
 			{
 				// error in determining angle
 				//printf( "error in determining angle: m=%.4f\n",m);
 			}
 		}
-		else 
+		else
 		{ //calculate to exact
 			dx = *y1 - *y2;
 			dy = *x2 - *x1;
 			float L = sqrtf((dx * dx) + (dy * dy));
 			dx /= L;
 			dy /= L;
-			*cx = -1.0f * (dy); 
+			*cx = -1.0f * (dy);
 			*cy = dx;
-			*tx = t * (dx); 
+			*tx = t * (dx);
 			*ty = t * (dy);
-			*Rx = R * (dx); 
+			*Rx = R * (dx);
 			*Ry = R * (dy);
 		}
 	}
 
-	*x1 += *cx * 0.5f; 
+	*x1 += *cx * 0.5f;
 	*y1 += *cy * 0.5f;
-	*x2 -= *cx * 0.5f; 
+	*x2 -= *cx * 0.5f;
 	*y2 -= *cy * 0.5f;
 }
 
@@ -2621,7 +2607,6 @@ glMatrixMode(GL_PROJECTION);
 glPushMatrix();
 glLoadIdentity();
 glOrtho( 0,context_width,context_height,0,0.0f,100.0f);
-
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_COLOR_ARRAY);
 line ( 10,100,100,300,		//coordinates
@@ -2629,11 +2614,9 @@ line ( 10,100,100,300,		//coordinates
 0.5, 0.0, 1.0, 1.0,	//line color RGBA
 0,0,			//not used
 true);			//enable alphablend
-
 //more line() or glDrawArrays() calls
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_COLOR_ARRAY);
-
 //other drawing code...
 glPopMatrix();
 glDisable(GL_BLEND); //restore blending options
@@ -2644,7 +2627,6 @@ glMatrixMode(GL_PROJECTION);
 glPushMatrix();
 glLoadIdentity();
 glOrtho( 0,context_width,context_height,0,0.0f,100.0f);
-
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_COLOR_ARRAY);
 line ( 20,100,110,300,		//coordinates
@@ -2652,11 +2634,9 @@ line ( 20,100,110,300,		//coordinates
 0.5, 0.0, 1.0,		//line color *RGB*
 1.0, 1.0, 1.0,		//background color
 false);			//not using alphablend
-
 //more line() or glDrawArrays() calls
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_COLOR_ARRAY);
-
 //other drawing code...
 glPopMatrix();
 */
@@ -2671,12 +2651,10 @@ void line(double x1, double y1, double x2, double y2, //coordinates of the line
 {
 	double t; double R; double f = w - static_cast<int>(w);
 	float A;
-
 	if (alphablend)
 		A = Br;
 	else
 		A = 1.0f;
-
 	//determine parameters t,R
 	if (w >= 0.0 && w<1.0) {
 		t = 0.05; R = 0.48 + 0.32*f;
@@ -2712,7 +2690,6 @@ void line(double x1, double y1, double x2, double y2, //coordinates of the line
 		t = 2.5 + ff*0.50; R = 1.08;
 	}
 	//printf( "w=%f, f=%f, C=%.4f\n", w,f,C);
-
 	//determine angle of the line to horizontal
 	double tx = 0, ty = 0; //core thinkness of a line
 	double Rx = 0, Ry = 0; //fading edge of a line
@@ -2776,10 +2753,8 @@ void line(double x1, double y1, double x2, double y2, //coordinates of the line
 			Rx = R*dx; Ry = R*dy;
 		}
 	}
-
 	x1 += cx*0.5; y1 += cy*0.5;
 	x2 -= cx*0.5; y2 -= cy*0.5;
-
 	//draw the line by triangle strip
 	float line_vertex[] =
 	{
@@ -2792,9 +2767,7 @@ void line(double x1, double y1, double x2, double y2, //coordinates of the line
 		x1 + tx + Rx - cx,   y1 + ty + Ry - cy, //fading edge2
 		x2 + tx + Rx + cx,   y2 + ty + Ry + cy
 	};
-
 	glVertexPointer(2, GL_FLOAT, 0, line_vertex);
-
 	if (!alphablend) {
 		float line_color[] =
 		{
@@ -2823,9 +2796,7 @@ void line(double x1, double y1, double x2, double y2, //coordinates of the line
 		};
 		glColorPointer(4, GL_FLOAT, 0, line_color);
 	}
-
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 8);
-
 	//cap
 	if (w < 3) {
 		//do not draw cap
@@ -2847,9 +2818,7 @@ void line(double x1, double y1, double x2, double y2, //coordinates of the line
 			x2 + tx + cx, y2 + ty + cy,
 			x2 + tx + Rx + cx, y2 + ty + Ry + cy
 		};
-
 		glVertexPointer(2, GL_FLOAT, 0, line_vertex);
-
 		if (!alphablend) {
 			float line_color[] =
 			{
@@ -2886,7 +2855,6 @@ void line(double x1, double y1, double x2, double y2, //coordinates of the line
 			};
 			glColorPointer(4, GL_FLOAT, 0, line_color);
 		}
-
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 6);
 		glDrawArrays(GL_TRIANGLE_STRIP, 6, 6);
 	}

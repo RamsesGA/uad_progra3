@@ -50,19 +50,19 @@ public:
 
 	enum OPENGL_BLEND_MODE
 	{
-		BLEND_ZERO = 0, 
-		BLEND_ONE, 
-		BLEND_SRC_COLOR, 
-		BLEND_ONE_MINUS_SRC_COLOR, 
-		BLEND_DST_COLOR, 
-		BLEND_ONE_MINUS_DST_COLOR, 
-		BLEND_SRC_ALPHA, 
-		BLEND_ONE_MINUS_SRC_ALPHA, 
-		BLEND_DST_ALPHA, 
+		BLEND_ZERO = 0,
+		BLEND_ONE,
+		BLEND_SRC_COLOR,
+		BLEND_ONE_MINUS_SRC_COLOR,
+		BLEND_DST_COLOR,
+		BLEND_ONE_MINUS_DST_COLOR,
+		BLEND_SRC_ALPHA,
+		BLEND_ONE_MINUS_SRC_ALPHA,
+		BLEND_DST_ALPHA,
 		BLEND_ONE_MINUS_DST_ALPHA,
-		BLEND_CONSTANT_COLOR, 
-		BLEND_ONE_MINUS_CONSTANT_COLOR, 
-		BLEND_CONSTANT_ALPHA, 
+		BLEND_CONSTANT_COLOR,
+		BLEND_ONE_MINUS_CONSTANT_COLOR,
+		BLEND_CONSTANT_ALPHA,
 		BLEND_ONE_MINUS_CONSTANT_ALPHA
 	};
 
@@ -110,8 +110,8 @@ private:
 		GLfloat *UVcoords, int numUVCoords,
 		int numIndicesVert,
 		unsigned short *indicesVertices,
-		unsigned short *indicesNormals, 
-		unsigned short *indicesUVCoords, 
+		unsigned short *indicesNormals,
+		unsigned short *indicesUVCoords,
 		GLfloat *finalVertices,
 		GLfloat *finalNormals,
 		GLfloat *finalUVCoords,
@@ -174,7 +174,7 @@ public:
 	// =================================================================
 	bool allocateGraphicsMemoryForObject(
 		unsigned int *shaderProgramId,
-		unsigned int *vertexArrayObjectID, 
+		unsigned int *vertexArrayObjectID,
 		GLfloat *vertices, int numVertices,
 		GLfloat *normals, int numNormals,
 		GLfloat *UVcoords, int numUVCoords,
@@ -223,9 +223,9 @@ public:
 
 	//
 	bool createTextureObject(
-		unsigned int *textureObjectId, 
+		unsigned int *textureObjectId,
 		unsigned char *textureData,
-		int width, 
+		int width,
 		int height);
 
 	// 
@@ -289,11 +289,11 @@ public:
 	void setCurrentShaderAmbientLight(GLfloat red, GLfloat green, GLfloat blue, GLfloat ambientIntensity);
 
 	/*
-	 * With vertex attributes, each run of the vertex shader will cause GLSL to retrieve the next set of vertex attributes that belong to the current vertex. 
-	 * When defining a vertex attribute as an instanced array however, the vertex shader only updates the content of the vertex attribute per instance instead of per vertex. 
+	 * With vertex attributes, each run of the vertex shader will cause GLSL to retrieve the next set of vertex attributes that belong to the current vertex.
+	 * When defining a vertex attribute as an instanced array however, the vertex shader only updates the content of the vertex attribute per instance instead of per vertex.
 	 * This allows us to use the standard vertex attributes for data per vertex and use the instanced array for storing data that is unique per instance.
 	 */
-	//
+	 //
 	bool setInstancedOffsetPositions(unsigned int *shaderProgramId);
 
 	bool setInstancedModelViewMatrices(unsigned int *shaderProgramId);
@@ -304,31 +304,25 @@ public:
 	http://www.opengl-tutorial.org/intermediate-tutorials/billboards-particles/particles-instancing/
 	https://learnopengl.com/code_viewer_gh.php?code=includes/learnopengl/shader.h
 	no longer use gl_InstanceID and can directly use the offset attribute without first indexing into a large uniform array.
-
 Because an instanced array is a vertex attribute, just like the position and color variables, we also need to store its content in a vertex buffer object and configure its attribute pointer. We're first going to store the translations array (from the previous section) in a new buffer object:
-
-
 unsigned int instanceVBO;
 glGenBuffers(1, &instanceVBO);
 glBindBuffer(GL_ARRAY_BUFFER, instanceVBO);
 glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec2) * 100, &translations[0], GL_STATIC_DRAW);
-glBindBuffer(GL_ARRAY_BUFFER, 0); 
+glBindBuffer(GL_ARRAY_BUFFER, 0);
 Then we also need to set its vertex attribute pointer and enable the vertex attribute:
-
-
 glEnableVertexAttribArray(2);
 glBindBuffer(GL_ARRAY_BUFFER, instanceVBO);
 glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
-glBindBuffer(GL_ARRAY_BUFFER, 0);	
-glVertexAttribDivisor(2, 1);  
+glBindBuffer(GL_ARRAY_BUFFER, 0);
+glVertexAttribDivisor(2, 1);
 What makes this code interesting is the last line where we call glVertexAttribDivisor. This function tells OpenGL when to update the content of a vertex attribute to the next element. Its first parameter is the vertex attribute in question and the second parameter the attribute divisor. By default the attribute divisor is 0 which tells OpenGL to update the content of the vertex attribute each iteration of the vertex shader. By setting this attribute to 1 we're telling OpenGL that we want to update the content of the vertex attribute when we start to render a new instance. By setting it to 2 we'd update the content every 2 instances and so on. By setting the attribute divisor to 1 we're effectively telling OpenGL that the vertex attribute at attribute location 2 is an instanced array.
-
 If we now were to render the quads again using glDrawArraysInstanced we'd get the following outpu
 	*/
 
 	//
 	bool renderMenuItem(
-		unsigned int *shaderProgramId, 
+		unsigned int *shaderProgramId,
 		unsigned int *textureObjectId,
 		unsigned int *vertexArrayObjectId,
 		GLfloat *menuItemColor);
@@ -344,16 +338,16 @@ If we now were to render the quads again using glDrawArraysInstanced we'd get th
 	//
 	void renderColorCube(MathHelper::Matrix4 *objectTransformation = NULL);
 	void renderColorCube(
-		MathHelper::Matrix4 *modelMatrix, 
-		MathHelper::Matrix4 *viewMatrix, 
-		MathHelper::Matrix4 *projectionMatrix );
-	
+		MathHelper::Matrix4 *modelMatrix,
+		MathHelper::Matrix4 *viewMatrix,
+		MathHelper::Matrix4 *projectionMatrix);
+
 	//
 	void initializeTexturedCube();
 	//
 	void renderTexturedCube(unsigned int cubeTextureID, MathHelper::Matrix4 *objectTransformation = NULL);
 	void renderTexturedCube(
-		unsigned int cubeTextureID, 
+		unsigned int cubeTextureID,
 		MathHelper::Matrix4 *modelMatrix,
 		MathHelper::Matrix4 *viewMatrix,
 		MathHelper::Matrix4 *projectionMatrix);
@@ -396,7 +390,7 @@ If we now were to render the quads again using glDrawArraysInstanced we'd get th
 	void activateOpenGLDebugging();
 
 	// 
-	void setWireframePolygonMode() { glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);	}
+	void setWireframePolygonMode() { glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); }
 
 	// 
 	void setFillPolygonMode() { glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); }
@@ -434,12 +428,12 @@ If we now were to render the quads again using glDrawArraysInstanced we'd get th
 
 	//
 	static void APIENTRY debugOutputCallback(
-		GLenum source, 
-		GLenum type, 
-		GLuint id, 
+		GLenum source,
+		GLenum type,
+		GLuint id,
 		GLenum severity,
-		GLsizei length, 
-		const GLchar *message, 
+		GLsizei length,
+		const GLchar *message,
 		const GLvoid *userParam);
 
 };

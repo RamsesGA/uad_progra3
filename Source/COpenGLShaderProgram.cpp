@@ -40,9 +40,9 @@ COpenGLShaderProgram::~COpenGLShaderProgram()
 /*
 */
 bool COpenGLShaderProgram::setParameter(
-	std::string paramName, 
-	void *val, 
-	COpenGLShaderProgram::SHADER_PARAM_TYPE paramType, 
+	std::string paramName,
+	void *val,
+	COpenGLShaderProgram::SHADER_PARAM_TYPE paramType,
 	unsigned int szValue,
 	int numValues)
 {

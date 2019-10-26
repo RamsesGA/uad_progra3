@@ -27,4 +27,3 @@ public:
 };
 
 #endif // !CLIGHT_H
-

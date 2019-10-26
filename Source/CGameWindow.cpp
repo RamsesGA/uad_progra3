@@ -11,32 +11,32 @@ using namespace std;
 #include "../Include/CApp.h"
 
 // Initialize static member variables
-bool CGameWindow::requestF1                 = false;
-bool CGameWindow::requestF2                 = false;
-bool CGameWindow::requestF3                 = false;
-bool CGameWindow::requestF4                 = false;
-bool CGameWindow::requestF5                 = false;
-bool CGameWindow::requestF6                 = false;
-bool CGameWindow::requestF7                 = false;
-bool CGameWindow::requestF8                 = false;
-bool CGameWindow::requestF9                 = false;
-bool CGameWindow::requestF10                = false;
-bool CGameWindow::requestF11                = false;
-bool CGameWindow::requestF12                = false;
+bool CGameWindow::requestF1 = false;
+bool CGameWindow::requestF2 = false;
+bool CGameWindow::requestF3 = false;
+bool CGameWindow::requestF4 = false;
+bool CGameWindow::requestF5 = false;
+bool CGameWindow::requestF6 = false;
+bool CGameWindow::requestF7 = false;
+bool CGameWindow::requestF8 = false;
+bool CGameWindow::requestF9 = false;
+bool CGameWindow::requestF10 = false;
+bool CGameWindow::requestF11 = false;
+bool CGameWindow::requestF12 = false;
 
-bool CGameWindow::requestExecuteAction      = false;
+bool CGameWindow::requestExecuteAction = false;
 bool CGameWindow::requestSelectNextMenuItem = false;
 bool CGameWindow::requestSelectPrevMenuItem = false;
-bool CGameWindow::requestArrowUp            = false;
-bool CGameWindow::requestArrowDown          = false;
-bool CGameWindow::requestArrowLeft          = false;
-bool CGameWindow::requestArrowRight         = false;
-int  CGameWindow::keyMods                   = 0;
+bool CGameWindow::requestArrowUp = false;
+bool CGameWindow::requestArrowDown = false;
+bool CGameWindow::requestArrowLeft = false;
+bool CGameWindow::requestArrowRight = false;
+int  CGameWindow::keyMods = 0;
 
-int  CGameWindow::newWidth                  = 0;
-int  CGameWindow::newHeight                 = 0;
-double CGameWindow::stCursorPosX            = 0.0;
-double CGameWindow::stCursorPosY            = 0.0;
+int  CGameWindow::newWidth = 0;
+int  CGameWindow::newHeight = 0;
+double CGameWindow::stCursorPosX = 0.0;
+double CGameWindow::stCursorPosY = 0.0;
 
 /* Default constructor, uses C++11 'delegate constructor' feature
 */
@@ -49,7 +49,7 @@ CGameWindow::CGameWindow(COpenGLRenderer * renderer) :
 */
 CGameWindow::CGameWindow(COpenGLRenderer * renderer, int width, int height) :
 	m_ReferenceRenderer{ renderer },
-	m_Width{ width }, 
+	m_Width{ width },
 	m_Height{ height },
 	m_InitializedGLFW{ false },
 	m_CursorPosX{ 0.0 },
@@ -144,7 +144,7 @@ bool CGameWindow::create(const char *windowTitle)
 
 	/* Display OpenGL version and OpenGL Shading Language version */
 	cout << "OpenGL version: " << m_ReferenceRenderer->getOpenGLString(GL_VERSION) << endl; // GLVersion.major, GLVersion.minor
-	cout << "GLSL version: "   << m_ReferenceRenderer->getOpenGLString(GL_SHADING_LANGUAGE_VERSION) << endl;
+	cout << "GLSL version: " << m_ReferenceRenderer->getOpenGLString(GL_SHADING_LANGUAGE_VERSION) << endl;
 
 	/* Capture ESC key */
 	glfwSetInputMode(m_Window, GLFW_STICKY_KEYS, GL_TRUE);
@@ -176,13 +176,13 @@ bool CGameWindow::create(const char *windowTitle)
 	}
 
 	/*
-     * http://www.glfw.org/docs/latest/input_guide.html#cursor_pos
-	 * "If you wish to implement mouse motion based camera controls or other input schemes that require unlimited mouse movement, 
+	 * http://www.glfw.org/docs/latest/input_guide.html#cursor_pos
+	 * "If you wish to implement mouse motion based camera controls or other input schemes that require unlimited mouse movement,
 	 *  set the cursor mode to GLFW_CURSOR_DISABLED."
-	 *  This will hide the cursor and lock it to the specified window. GLFW will then take care of all the details of cursor re-centering and 
-	 *  offset calculation and providing the application with a virtual cursor position. This virtual position is provided normally via both 
+	 *  This will hide the cursor and lock it to the specified window. GLFW will then take care of all the details of cursor re-centering and
+	 *  offset calculation and providing the application with a virtual cursor position. This virtual position is provided normally via both
 	 *  the cursor position callback and through polling.
-     */
+	 */
 	glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	// Get the desktop resolution.
@@ -201,7 +201,7 @@ bool CGameWindow::create(const char *windowTitle)
 
 		// Get the handle to the console window
 		HWND consoleWindow = GetConsoleWindow();
-		
+
 		// Set the position of the console window
 		if (consoleWindow)
 		{
@@ -212,7 +212,7 @@ bool CGameWindow::create(const char *windowTitle)
 			GetWindowRect(consoleWindow, &r);
 
 			// Set console window dimensions/position
-			MoveWindow(consoleWindow, 
+			MoveWindow(consoleWindow,
 				windowPosXOffset + m_Width + windowPosXOffset,
 				((videoMode->height - (m_Height + extraHeight)) / 2),
 				r.right - r.left, m_Height + extraHeight,
@@ -220,13 +220,13 @@ bool CGameWindow::create(const char *windowTitle)
 
 			// Set console window position
 			/*SetWindowPos(
-				consoleWindow, 0, 
-				m_Width + 20, 
-				((videoMode->height - m_Height) / 2), 
+				consoleWindow, 0,
+				m_Width + 20,
+				((videoMode->height - m_Height) / 2),
 				0, 0, SWP_NOSIZE | SWP_NOZORDER); */
 		}
 	}
-	
+
 	int framebufferWidth, framebufferHeight;
 	glfwGetFramebufferSize(m_Window, &framebufferWidth, &framebufferHeight);
 
@@ -295,8 +295,8 @@ void CGameWindow::mainLoop(void *appPointer)
 		// Good example of frame-based animation vs time-based animation: http://blog.sklambert.com/using-time-based-animation-implement/
 		QueryPerformanceCounter(&li);
 		current_time = double(li.QuadPart - CounterStart) / PCFreq;
-		delta_time   = current_time - last_time; // Calculate elapsed time
-		last_time    = current_time;             // Update last time to be the current time
+		delta_time = current_time - last_time; // Calculate elapsed time
+		last_time = current_time;             // Update last time to be the current time
 
 		if (delta_time > 0.0)
 		{
@@ -412,26 +412,26 @@ void CGameWindow::keyboardCallback(GLFWwindow * window, int key, int scancode, i
 		case GLFW_KEY_F12:
 			CGameWindow::requestF12 = true;
 			break;
-		// ARROW DOWN key selects the next menu item if menu is active, application-specific otherwise
+			// ARROW DOWN key selects the next menu item if menu is active, application-specific otherwise
 		case GLFW_KEY_DOWN:
 			CGameWindow::requestSelectNextMenuItem = true;
 			CGameWindow::requestArrowDown = true;
 			break;
-		// ARROW UP key selects the prev menu item if menu is active, application-specific otherwise
+			// ARROW UP key selects the prev menu item if menu is active, application-specific otherwise
 		case GLFW_KEY_UP:
 			CGameWindow::requestSelectPrevMenuItem = true;
 			CGameWindow::requestArrowUp = true;
 			break;
-		// ARROW LEFT, app-specific
+			// ARROW LEFT, app-specific
 		case GLFW_KEY_LEFT:
 			CGameWindow::requestArrowLeft = true;
 			break;
-		// ARROW RIGHT, app-specific
+			// ARROW RIGHT, app-specific
 		case GLFW_KEY_RIGHT:
 			CGameWindow::requestArrowRight = true;
 			break;
-		// ARROW RIGHT, app-specific
-		// ENTER key executes the current menu item action
+			// ARROW RIGHT, app-specific
+			// ENTER key executes the current menu item action
 		case GLFW_KEY_ENTER:
 			CGameWindow::requestExecuteAction = true;
 			break;
@@ -584,7 +584,7 @@ void CGameWindow::processInput(void *appPointer)
 		}
 		else
 		{
-			CGameWindow::requestExecuteAction      = false;
+			CGameWindow::requestExecuteAction = false;
 			CGameWindow::requestSelectNextMenuItem = false;
 			CGameWindow::requestSelectPrevMenuItem = false;
 
