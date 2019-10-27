@@ -9,7 +9,7 @@ using namespace std;
 Hexa_Grid::Hexa_Grid() {}
 Hexa_Grid::~Hexa_Grid(){}
 
-void Hexa_Grid::initialize(unsigned int _num_cols, unsigned int _num_rows, float _cell_size, bool _p_or_f)
+void Hexa_Grid::initialize(unsigned int _num_cols, unsigned int _num_rows, float _cell_size, bool _p_or_f, CVector3 _center)
 {
 	system("cls");
 
@@ -19,43 +19,54 @@ void Hexa_Grid::initialize(unsigned int _num_cols, unsigned int _num_rows, float
 
 	if (_p_or_f == true) //Finalmente checamos en que posición debe estár el panal
 	{
-		cout << "\nEl panal sera POINTY" << endl;
-		CVector3 center(0, 0, 0);
-		hexa_pointy_points(center, 1, _cell_size);
-		structure_hexa();
+		cout << "\nEl panal sera POINTY\n" << endl;
+		hexa_pointy_points(_center, 1, _cell_size,_p_or_f);
+		structure_hexa(_p_or_f);
 	}
 	else
 	{
-		cout << "\t\tEl panal sera FLAT" << endl;
+		cout << "\nEl panal sera FLAT\n" << endl;
+		hexa_pointy_points(_center, 1, _cell_size, _p_or_f);
+		structure_hexa(_p_or_f);
 	}
 }
 
-CVector3 Hexa_Grid::hexa_pointy_points(CVector3 _center, int _index, float _cell_size)
+CVector3 Hexa_Grid::hexa_pointy_points(CVector3 _center, int _index, float _cell_size, bool _p_or_f)
 {
 	CVector3 point;
-	float angle;
+	float angle = 0;
+	float angle_rad = 0.0f;
 
-	angle = (60 * _index) - 30;
-
-	float angle_rad = angle * PI_OVER_180;
-
-	point.Y = 0.0f;
-	point.X = _center.X + _cell_size * cos(angle_rad);
-	point.Z = _center.Y + _cell_size * sin(angle_rad);
+	if (_p_or_f == true)//POINTY
+	{
+		angle = (60 * _index) - 30;
+		angle_rad = angle * PI_OVER_180;
+		point.Y = 0.0f;
+		point.X = _center.X + _cell_size * cos(angle_rad);
+		point.Z = _center.Y + _cell_size * sin(angle_rad);
+	}
+	else if (_p_or_f == false)//FLAT
+	{
+		angle = (60 * _index);
+		angle_rad = angle * PI_OVER_180;
+		point.Y = 0.0f;
+		point.X = _center.X + _cell_size * cos(angle_rad);
+		point.Z = _center.Y + _cell_size * sin(angle_rad);
+	}
 	return point;
 }
 
-void Hexa_Grid::structure_hexa()
+void Hexa_Grid::structure_hexa(bool _p_or_f)
 {
 	CVector3 p_1, p_2, p_3, p_4, p_5, p_6;
 	CVector3 v1, v2, v3, v1v2, v1v3, norm;
 
-	p_1 = hexa_pointy_points(CVector3(0.0f, 0.0f, 0.0f), 1, 3);
-	p_2 = hexa_pointy_points(CVector3(0.0f, 0.0f, 0.0f), 2, 3);
-	p_3 = hexa_pointy_points(CVector3(0.0f, 0.0f, 0.0f), 3, 3);
-	p_4 = hexa_pointy_points(CVector3(0.0f, 0.0f, 0.0f), 4, 3);
-	p_5 = hexa_pointy_points(CVector3(0.0f, 0.0f, 0.0f), 5, 3);
-	p_6 = hexa_pointy_points(CVector3(0.0f, 0.0f, 0.0f), 6, 3);
+	p_1 = hexa_pointy_points(CVector3(0.0f, 0.0f, 0.0f), 1, 3, _p_or_f);
+	p_2 = hexa_pointy_points(CVector3(0.0f, 0.0f, 0.0f), 2, 3, _p_or_f);
+	p_3 = hexa_pointy_points(CVector3(0.0f, 0.0f, 0.0f), 3, 3, _p_or_f);
+	p_4 = hexa_pointy_points(CVector3(0.0f, 0.0f, 0.0f), 4, 3, _p_or_f);
+	p_5 = hexa_pointy_points(CVector3(0.0f, 0.0f, 0.0f), 5, 3, _p_or_f);
+	p_6 = hexa_pointy_points(CVector3(0.0f, 0.0f, 0.0f), 6, 3, _p_or_f);
 
 	//numero de vertices * 3
 	float vertex_data[18] =
