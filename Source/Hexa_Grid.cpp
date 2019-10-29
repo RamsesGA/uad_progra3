@@ -39,7 +39,7 @@ CVector3 Hexa_Grid::hexa_pointy_points(CVector3 _center, int _index, float _cell
 
 	if (_p_or_f == true)//POINTY
 	{
-		angle = (60 * _index) - 30;
+		angle = (60 * _index) - 30;//index	
 		angle_rad = angle * PI_OVER_180;
 		point.Y = 0.0f;
 		point.X = _center.X + _cell_size * cos(angle_rad);
@@ -47,7 +47,7 @@ CVector3 Hexa_Grid::hexa_pointy_points(CVector3 _center, int _index, float _cell
 	}
 	else if (_p_or_f == false)//FLAT
 	{
-		angle = (60 * _index);
+		angle = (60 * _index);//index
 		angle_rad = angle * PI_OVER_180;
 		point.Y = 0.0f;
 		point.X = _center.X + _cell_size * cos(angle_rad);

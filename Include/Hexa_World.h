@@ -1,10 +1,11 @@
 #pragma once
-//Solo es necesario Globals, CApp, ../Dependencies/JSON/nlohmann/json.hpp, ../Include/Hexa_Grid.h, 
+//Solo es necesario Globals, CApp, ../Dependencies/JSON/nlohmann/json.hpp, ../Include/Hexa_Grid.h, C3DModel 
 #include "Globals.h"
 #include "CApp.h"
 #include "../Dependencies/JSON/nlohmann/json.hpp"
 #include "../Include/Hexa_Grid.h"
-
+#include "../Include/C3DModel.h"
+#include "../Include/CAppObjLoader.h"
 using json = nlohmann::json;
 
 class Hexa_World : public CApp
@@ -44,7 +45,9 @@ class Hexa_World : public CApp
 
 
 		//Variables
-		Hexa_World *m_objLoader; //Variable para mandar a llamar la función para cargar un modelo obj
+		vector<C3DModel*> m_game_objects; //Variable para mandar a llamar la función para cargar un modelo obj
+
+		CAppObjLoader loader_obj; //
 
 		json obj_json; //Objeto tipo json
 
@@ -76,8 +79,6 @@ class Hexa_World : public CApp
 		void carga_openGL(); //Función dedicada para cargar los ID
 
 		void render(); //Función vital para poder dibujar en pantalla
-	
-
 
 
 
@@ -89,6 +90,8 @@ class Hexa_World : public CApp
 
 
 		// Override on F2/F3
+		void onF2(int mods);
 		void onF3(int mods);
 		void moveCamera(float _direction);
+		void onMouseMove(float deltaX, float deltaY);
 };

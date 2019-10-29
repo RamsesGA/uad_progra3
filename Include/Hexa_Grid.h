@@ -23,6 +23,9 @@ class Hexa_Grid
 		unsigned short m_face_Normal_Indices[12];
 
 		unsigned int numFaces; //Variable para indicar el número de caras
+
+		int obj_index = 0; //Para que la celda sepa cual de los modelos en vector<C3DModel*> m_gameobjects es el que debe cargar
+		bool m_hasModel = false; //indica si tiene un objeto la celda
 	
 		//Función para poder recibir los datos importantes desde "llamada_hex_grid"
 		void initialize(unsigned int _num_cols, unsigned int _num_rows, float _cell_size, bool _p_or_f, CVector3 _center);

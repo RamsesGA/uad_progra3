@@ -13,6 +13,7 @@ using namespace std;
 #include "../Dependencies/JSON/nlohmann/json.hpp"
 #include "../Include/Hexa_World.h"
 #include "../Include/Hexa_Grid.h"
+#include "../Include/CAppObjLoader.h"
 
 //------------------------------------------------------------------------------------------------------------
 Hexa_World::Hexa_World(int window_width, int window_height) : CApp(window_width, window_height), m_current_Delta_Time{ 0.0 }, m_object_Rotation{ 0.0 }, m_object_Position{ -1.5f, 0.0f, 0.0f }, m_rotation_Speed{ DEFAULT_ROTATION_SPEED }, m_Hexa_Vertex_Array_Object{ 0 }, m_num_faces_hexa{ 0 }, m_render_Polygon_Mode{ 0 }
@@ -38,7 +39,10 @@ Hexa_World::~Hexa_World()
 	}
 }
 
+
 //Cositas extra
+
+//------------------------------------------------------------------------------------------------------------
 void Hexa_World::onF3(int mods)
 {
 	//if (m_render_Polygon_Mode == 0)
@@ -70,6 +74,21 @@ void Hexa_World::moveCamera(float _direction)
 	}
 }
 
+void Hexa_World::onMouseMove(float deltaX, float deltaY)
+{
+	if (deltaX < 100.0f && deltaY < 100.0f)
+	{
+		float moveX = -deltaX * DEFAULT_CAMERA_MOVE_SPEED;
+		float moveZ = -deltaY * DEFAULT_CAMERA_MOVE_SPEED;
+
+		float currPos[3];
+		m_object_Position.getValues(currPos);
+		currPos[0] += moveX;
+		currPos[2] += moveZ;
+		m_object_Position.setValues(currPos);
+	}
+}
+
 //------------------------------------------------------------------------------------------------------------
 void Hexa_World::run()
 {
@@ -77,8 +96,7 @@ void Hexa_World::run()
 	{
 		if (getGameWindow()->create(CAPP_PROGRA3_HEXGRID_WINDOW_TITLE))
 		{
-			//Le damos el valor por default a cont, del .h
-			cont = 0;
+			cont = 0;//Le damos el valor por default a cont, del .h
 			initialize();
 			getOpenGLRenderer()->setClearScreenColor(119.0f, 136.0f, 153.f);
 			if (m_initialized)
@@ -304,4 +322,9 @@ void Hexa_World::render()
 			}
 		}
 	}
+}
+
+void Hexa_World::onF2(int mods)
+{
+	loader_obj.onF2(mods);
 }
