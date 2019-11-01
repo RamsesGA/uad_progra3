@@ -1,10 +1,12 @@
 #include "..\Include\Hexa_Grid.h"
-#include "../Include/Hexa_World.h"
 #include <iostream>
 #include <string>
+#include <vector>
 #include <math.h>
 
 using namespace std;
+
+
 
 Hexa_Grid::Hexa_Grid() {}
 Hexa_Grid::~Hexa_Grid(){}
@@ -13,45 +15,109 @@ void Hexa_Grid::initialize(unsigned int _num_cols, unsigned int _num_rows, float
 {
 	system("cls");
 
+	w = (sqrtf(3) * _cell_size) * 1.717f;
+	h = (2 * _cell_size) * 1.71585f;
+
 	cout << "\nNumero de columnas - -> " << _num_cols << endl;
-	cout << "\nNumero de filas - ->    " << _num_rows << endl;
+	cout << "\nNumero de filas    - -> " << _num_rows << endl;
 	cout << "\nTamaño de la celda - -> " << _cell_size << endl;
+
+	CVector3 posicion_2 = { 0.0f, 0.0f, 0.0f };
 
 	if (_p_or_f == true) //Finalmente checamos en que posición debe estár el panal
 	{
 		cout << "\nEl panal sera POINTY\n" << endl;
-		hexa_pointy_points(_center, 1, _cell_size,_p_or_f);
+
 		structure_hexa(_p_or_f);
+
+		for (int i = 0; i < _num_rows; i++)
+		{
+			vector <Centers> cont;
+			for (int j = 0; j < _num_cols; j++)
+			{
+				cont.push_back(posicion_2);
+
+				posicion_2.X = posicion_2.X + w;
+			}
+
+			vec_center_hexa.push_back(cont);
+
+			//Booleano, si es 0 es verdadero, si es 1 es falso
+			if (i % 2)//Caso si es par
+			{
+				posicion_2.X = 0.0f;
+			}
+			else//Caso si es impar
+			{
+				posicion_2.X = -(w / 2);
+			}
+
+			posicion_2.Z = posicion_2.Z + (h * 0.75);
+
+		}
 	}
-	else
+	else //Flat
 	{
 		cout << "\nEl panal sera FLAT\n" << endl;
-		hexa_pointy_points(_center, 1, _cell_size, _p_or_f);
 		structure_hexa(_p_or_f);
+
+		for (int i = 0; i < _num_rows; i++)
+		{
+			vector <Centers> cont;
+			for (int j = 0; j < _num_cols; j++)
+			{
+				cont.push_back(posicion_2);
+
+				posicion_2.Z = posicion_2.Z + w;
+			}
+
+			vec_center_hexa.push_back(cont);
+
+			//Booleano, si es 0 es verdadero, si es 1 es falso
+			if (i % 2)//Caso si es par
+			{
+				posicion_2.Z = 0.0f;
+			}
+			else//Caso si es impar
+			{
+				posicion_2.Z = -(w / 2);
+			}
+
+			posicion_2.X = posicion_2.X + (h * 0.75);
+
+		}
+
 	}
 }
 
-CVector3 Hexa_Grid::hexa_pointy_points(CVector3 _center, int _index, float _cell_size, bool _p_or_f)
+CVector3 Hexa_Grid::hexa_points(CVector3 _center, int _index, float _cell_size, bool _p_or_f)
 {
 	CVector3 point;
+
 	float angle = 0;
 	float angle_rad = 0.0f;
 
+
 	if (_p_or_f == true)//POINTY
 	{
-		angle = (60 * _index) - 30;//index	
+		angle = (60 * _index) - 30;
 		angle_rad = angle * PI_OVER_180;
+
 		point.Y = 0.0f;
 		point.X = _center.X + _cell_size * cos(angle_rad);
 		point.Z = _center.Y + _cell_size * sin(angle_rad);
 	}
+	
 	else if (_p_or_f == false)//FLAT
 	{
 		angle = (60 * _index);//index
 		angle_rad = angle * PI_OVER_180;
+		
 		point.Y = 0.0f;
 		point.X = _center.X + _cell_size * cos(angle_rad);
 		point.Z = _center.Y + _cell_size * sin(angle_rad);
+
+
 	}
 	return point;
 }
@@ -61,12 +127,12 @@ void Hexa_Grid::structure_hexa(bool _p_or_f)
 	CVector3 p_1, p_2, p_3, p_4, p_5, p_6;
 	CVector3 v1, v2, v3, v1v2, v1v3, norm;
 
-	p_1 = hexa_pointy_points(CVector3(0.0f, 0.0f, 0.0f), 1, 3, _p_or_f);
-	p_2 = hexa_pointy_points(CVector3(0.0f, 0.0f, 0.0f), 2, 3, _p_or_f);
-	p_3 = hexa_pointy_points(CVector3(0.0f, 0.0f, 0.0f), 3, 3, _p_or_f);
-	p_4 = hexa_pointy_points(CVector3(0.0f, 0.0f, 0.0f), 4, 3, _p_or_f);
-	p_5 = hexa_pointy_points(CVector3(0.0f, 0.0f, 0.0f), 5, 3, _p_or_f);
-	p_6 = hexa_pointy_points(CVector3(0.0f, 0.0f, 0.0f), 6, 3, _p_or_f);
+	p_1 = hexa_points(CVector3(0.0f, 0.0f, 0.0f), 1, 3, _p_or_f);
+	p_2 = hexa_points(CVector3(0.0f, 0.0f, 0.0f), 2, 3, _p_or_f);
+	p_3 = hexa_points(CVector3(0.0f, 0.0f, 0.0f), 3, 3, _p_or_f);
+	p_4 = hexa_points(CVector3(0.0f, 0.0f, 0.0f), 4, 3, _p_or_f);
+	p_5 = hexa_points(CVector3(0.0f, 0.0f, 0.0f), 5, 3, _p_or_f);
+	p_6 = hexa_points(CVector3(0.0f, 0.0f, 0.0f), 6, 3, _p_or_f);
 
 	//numero de vertices * 3
 	float vertex_data[18] =

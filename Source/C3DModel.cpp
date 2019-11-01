@@ -228,6 +228,8 @@ C3DModel* C3DModel::load(const char * const filename, COpenGLRenderer * const sh
 
 				newModel->setGraphicsMemoryObjectId(newModelVertexArrayObject);
 				
+
+
 				// If error ocurred, cleanup memory
 				if (!loadedToGraphicsCard)
 				{

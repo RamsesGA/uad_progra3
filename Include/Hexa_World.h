@@ -5,7 +5,9 @@
 #include "../Dependencies/JSON/nlohmann/json.hpp"
 #include "../Include/Hexa_Grid.h"
 #include "../Include/C3DModel.h"
+#include "../Include/C3DModel_Obj.h"
 #include "../Include/CAppObjLoader.h"
+
 using json = nlohmann::json;
 
 class Hexa_World : public CApp
@@ -47,30 +49,47 @@ class Hexa_World : public CApp
 		//Variables
 		vector<C3DModel*> m_game_objects; //Variable para mandar a llamar la función para cargar un modelo obj
 
-		CAppObjLoader loader_obj; //
+		CAppObjLoader loader_obj; 
 
 		json obj_json; //Objeto tipo json
 
 		bool isLoaded; //Booleano para poder dar la dirección ID de las variables
 
-		int cont; //Contador para el for
 		unsigned int num_cols; //Cantidad de columnas
 		unsigned int num_rows; //Cantidad de filas
+		unsigned int index = 0; //Contador para saber la cantidad exacta de figuras creadas
+
 		float cell_size; //Tamaño de la celda
+
 		bool pointy_or_flat = false; //false es para el FLAT
 		bool izq_o_dere = true; //false es para la izq
 
+		//Variables para la formula del desplazamiento del Hexa Grid
+		float w = 0.0f;
+		float h = 0.0f;
+
 		Hexa_Grid obj_grid;//Objeto para mandar a llamar variables del .h
+
+		//Variables necesarias para poder dibujar los obj
+		string objName = "";
+		string objFilename = "";
+
+		string obj_name_2 = "";
+		int obj_row = 0;
+		int obj_column = 0;
+		float obj_scale = 0.0f;
+		CVector3 obj_rotation = { 0.0f, 0.0f, 0.0f };
+		
+		vector <string> model_name; //variable para conocer el nombre clave del objeto
+
+		C3DModel *model;
 
 		//Vectores para moverme en el plano para el hexagrid
 		CVector3 posicion = { 0.0f,0.0f,0.0f };
 		CVector3 posicion_2 = { 0.0f,0.0f,0.0f };
 
-		//FORMULA HEXA GRID POINTY
-		float w = 0;
-		float h = 0;
+		
 
-		unsigned int index = 0; //Contador para saber la cantidad exacta de figuras creadas
 
 		void initialize(); //Función que manda a llamar "llamada_hex_grid"
 

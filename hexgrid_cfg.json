@@ -2,7 +2,7 @@
 	"HexGrid" : {
 		"numCols"     : 12,
 		"numRows"     : 12,
-		"cellSize"    : 0.5,
+		"cellSize"    : 1.75,
 		"orientation" : "pointy"
 	},
 	"Models" : [

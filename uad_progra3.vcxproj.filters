@@ -171,6 +171,9 @@
     <ClInclude Include="Include\Hexa_Grid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Include\Centros_Hexa.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -258,6 +261,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Hexa_Grid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Centros_Hexa.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

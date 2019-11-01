@@ -15,6 +15,7 @@ using namespace std;
 #include "../Include/Hexa_Grid.h"
 #include "../Include/CAppObjLoader.h"
 
+
 //------------------------------------------------------------------------------------------------------------
 Hexa_World::Hexa_World(int window_width, int window_height) : CApp(window_width, window_height), m_current_Delta_Time{ 0.0 }, m_object_Rotation{ 0.0 }, m_object_Position{ -1.5f, 0.0f, 0.0f }, m_rotation_Speed{ DEFAULT_ROTATION_SPEED }, m_Hexa_Vertex_Array_Object{ 0 }, m_num_faces_hexa{ 0 }, m_render_Polygon_Mode{ 0 }
 {
@@ -41,7 +42,6 @@ Hexa_World::~Hexa_World()
 
 
 //Cositas extra
-
 //------------------------------------------------------------------------------------------------------------
 void Hexa_World::onF3(int mods)
 {
@@ -82,10 +82,16 @@ void Hexa_World::onMouseMove(float deltaX, float deltaY)
 		float moveZ = -deltaY * DEFAULT_CAMERA_MOVE_SPEED;
 
 		float currPos[3];
-		m_object_Position.getValues(currPos);
-		currPos[0] += moveX;
-		currPos[2] += moveZ;
-		m_object_Position.setValues(currPos);
+		for (int i = 0; i < num_rows; i++)
+		{
+			for (int j = 0; j < num_cols; j++)
+			{
+				obj_grid.vec_center_hexa[i][j].centers.getValues(currPos);
+				currPos[0] += moveX;
+				currPos[2] += moveZ;
+				obj_grid.vec_center_hexa[i][j].centers.setValues(currPos);
+			}
+		}
 	}
 }
 
@@ -96,7 +102,11 @@ void Hexa_World::run()
 	{
 		if (getGameWindow()->create(CAPP_PROGRA3_HEXGRID_WINDOW_TITLE))
 		{
-			cont = 0;//Le damos el valor por default a cont, del .h
+
+			//Formula necesaria para el desplazamiento en el render
+			w = (sqrtf(3) * cell_size) * 1.717f;
+			h = (2 * cell_size) * 1.71585f;
+
 			initialize();
 			getOpenGLRenderer()->setClearScreenColor(119.0f, 136.0f, 153.f);
 			if (m_initialized)
@@ -138,6 +148,8 @@ void Hexa_World::update(double deltaTime)
 
 
 
+
+
 /* Aquí inicia lo mio ^-^ */
 void Hexa_World::initialize()
 {
@@ -159,6 +171,25 @@ void Hexa_World::initialize()
 	{
 		pointy_or_flat = false; //FLAT
 	}
+
+	int objects_present = (int)obj_json.count("Models");
+
+	if (objects_present > 0 && obj_json["Models"].type() == json::value_t::array)
+	{
+		// iterate the array
+		for (json::iterator it = obj_json["Models"].begin(); it != obj_json["Models"].end(); ++it)
+		{
+			objFilename = it.value().value("filename", objFilename);
+			objFilename = "Resources/MEDIA/" + objFilename;
+
+			objName = it.value().value("name", objName);
+			model_name.push_back(objName);
+
+			model = new C3DModel_Obj();
+			m_game_objects.push_back(model->load(objFilename.c_str(), getOpenGLRenderer()));
+		}
+	}
+
 
 	m_color_Model_Shader_Id = getOpenGLRenderer()->getShaderProgramID(SHADER_PROGRAM_COLOR_OBJECT);
 
@@ -196,7 +227,36 @@ void Hexa_World::initialize()
 
 	m_initialized = true;
 	
+	//Llamada de la función para poder generar los puntos
 	llamada_hex_grid();
+
+
+	//Iteramos los datos para encontrar y guardar de Model Instances
+	int objects_present_2 = (int)obj_json.count("ModelInstances");
+
+	if (objects_present_2 > 0 && obj_json["ModelInstances"].type() == json::value_t::array)
+	{
+		// iterate the array
+		for (json::iterator it_2 = obj_json["ModelInstances"].begin(); it_2 != obj_json["ModelInstances"].end(); ++it_2)
+		{
+			obj_name_2 = it_2.value().value("model", obj_name_2);
+			obj_row = it_2.value().value("row", obj_row);
+			obj_column = it_2.value().value("column", obj_column);
+			obj_scale = it_2.value().value("scale", obj_scale);
+
+			//obj_rotation = it_2.value().value("rotation", obj_rotation{});
+
+			for (int i = 0; i < model_name.size(); i++)
+			{
+				if (obj_name_2 == model_name[i])
+				{
+					obj_grid.vec_center_hexa[obj_row][obj_column].instance_obj = m_game_objects[i];
+				}
+			}
+			
+		}
+	}
+
 }
 
 //Función solo para poder mandar a inicializar los puntos y vertices del hexágono
@@ -235,88 +295,54 @@ void Hexa_World::carga_openGL()
 
 }
 
-//Importante para mandar a imprimir el hexa_grid
+//Importante para mandar a imprimir el hexa_grid EL IMPORTANTE
 void Hexa_World::render()
 {
 	CGameMenu *menu = getMenu();
-	posicion = CVector3(0.0f, 0.0f, 0.0f);
-	posicion_2 = CVector3(0.0f, 0.0f, 0.0f);
+	float scale = 0.0f;
 
-	if (menu != NULL && menu->isInitialized() && menu->isActive()){}
+	if (menu != NULL && menu->isInitialized() && menu->isActive())
+	{
+	}
 	else
 	{
-		w = sqrtf(3) * cell_size;
-		h = 2 * cell_size;
-		float color[3] = { 41.0f, 255.0f, 218.0f }; 
+		float color[3] = { 41.0f, 255.0f, 218.0f };
 		unsigned int noTexture = 0;
-	
-		for (cont; cont < num_cols * num_rows; cont++)
-		{
-			if (m_Hexa_Vertex_Array_Object > 0 && obj_grid.numFaces > 0)
-			{
-				MathHelper::Matrix4 modelMatrix2 = MathHelper::SimpleModelMatrixRotationTranslation(0, posicion);
 
-				getOpenGLRenderer()->renderObject
-				(
-					&m_textured_Model_Shader_Id,
-					&m_Hexa_Vertex_Array_Object,
-					&noTexture,
-					obj_grid.numFaces,
-					color,
-					&modelMatrix2,
-					COpenGLRenderer::EPRIMITIVE_MODE::TRIANGLES,
-					false
-				);
-			}
-			index++;
-			//Pointy
-			if (pointy_or_flat == true)
+		if (m_Hexa_Vertex_Array_Object > 0 && obj_grid.numFaces > 0)
+		{
+			for (int i = 0; i < num_rows; i++)
 			{
-				if (index < num_cols)//Condición para poder moverse en X
+				for (int j = 0; j < num_cols; j++)
 				{
-					posicion = posicion + CVector3(w, 0.0f, 0.0f);
-				}
-				else
-				{
-					if (izq_o_dere == false)//Se moverá a la izquierda, bajando una pos y avanzando después en X
+					MathHelper::Matrix4 modelMatrix2 = MathHelper::SimpleModelMatrixRotationTranslation(0, obj_grid.vec_center_hexa[i][j].centers);
+
+					getOpenGLRenderer()->renderObject
+					(
+						&m_textured_Model_Shader_Id,
+						&m_Hexa_Vertex_Array_Object,
+						&noTexture,
+						obj_grid.numFaces,
+						color,
+						&modelMatrix2,
+						COpenGLRenderer::EPRIMITIVE_MODE::TRIANGLES,
+						false
+					);
+
+					if (obj_grid.vec_center_hexa[i][j].instance_obj != nullptr)
 					{
-						posicion_2 = posicion_2 + CVector3(-(w / 2), 0.0f, (h * 0.75f));
-						posicion = posicion_2;
-						izq_o_dere = true; //Para poder bajar y continuar de manera correcta
-						index = 0; //Vital reiniciar, para seguir imprimiendo
-					}
-					else if (izq_o_dere == true)//Se moverá a la derecha, bajando una pos y avanzando después en X
-					{
-						posicion_2 = posicion_2 + CVector3((w / 2), 0.0f, (h * 0.75f));
-						posicion = posicion_2;
-						izq_o_dere = false; //Para poder bajar y continuar de manera correcta
-						index = 0; //Vital reiniciar, para seguir imprimiendo
-					}
-					
-				}
-			}
-			//Flat
-			else if (pointy_or_flat == false)
-			{
-				if (index < num_rows)//Condición para poder moverse en X
-				{
-					posicion = posicion + CVector3(0.0f, 0.0f, w);
-				}
-				else
-				{
-					if (izq_o_dere == false)//Se moverá a la Arriba
-					{
-						posicion_2 = posicion_2 + CVector3((h * 0.75f), 0.0f, (w / 2));
-						posicion = posicion_2;
-						izq_o_dere = true; //Para poder bajar y continuar de manera correcta
-						index = 0; //Vital reiniciar, para seguir imprimiendo
-					}
-					else if (izq_o_dere == true)//Se moverá a la Abajo
-					{
-						posicion_2 = posicion_2 + CVector3((h * 0.75f), 0.0f, -(w / 2));
-						posicion = posicion_2;
-						izq_o_dere = false; //Para poder bajar y continuar de manera correcta
-						index = 0; //Vital reiniciar, para seguir imprimiendo
+						unsigned int id_temp = obj_grid.vec_center_hexa[i][j].instance_obj->getGraphicsMemoryObjectId();
+						getOpenGLRenderer()->renderObject
+						(
+							&m_textured_Model_Shader_Id,
+							&id_temp,
+							&noTexture,
+							obj_grid.vec_center_hexa[i][j].instance_obj->getNumFaces(),
+							color,
+							&modelMatrix2,
+							COpenGLRenderer::EPRIMITIVE_MODE::TRIANGLES,
+							false
+						);
 					}
 				}
 			}
