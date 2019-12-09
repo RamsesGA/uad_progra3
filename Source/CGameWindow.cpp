@@ -413,20 +413,24 @@ void CGameWindow::keyboardCallback(GLFWwindow * window, int key, int scancode, i
 			CGameWindow::requestF12 = true;
 			break;
 			// ARROW DOWN key selects the next menu item if menu is active, application-specific otherwise
+		case GLFW_KEY_S:
 		case GLFW_KEY_DOWN:
 			CGameWindow::requestSelectNextMenuItem = true;
 			CGameWindow::requestArrowDown = true;
 			break;
 			// ARROW UP key selects the prev menu item if menu is active, application-specific otherwise
+		case GLFW_KEY_W:
 		case GLFW_KEY_UP:
 			CGameWindow::requestSelectPrevMenuItem = true;
 			CGameWindow::requestArrowUp = true;
 			break;
 			// ARROW LEFT, app-specific
+		case GLFW_KEY_A:
 		case GLFW_KEY_LEFT:
 			CGameWindow::requestArrowLeft = true;
 			break;
 			// ARROW RIGHT, app-specific
+		case GLFW_KEY_D:
 		case GLFW_KEY_RIGHT:
 			CGameWindow::requestArrowRight = true;
 			break;
@@ -444,15 +448,19 @@ void CGameWindow::keyboardCallback(GLFWwindow * window, int key, int scancode, i
 
 		switch (key)
 		{
+		case GLFW_KEY_W:
 		case GLFW_KEY_UP:
 			CGameWindow::requestArrowUp = false;
 			break;
+		case GLFW_KEY_S:
 		case GLFW_KEY_DOWN:
 			CGameWindow::requestArrowDown = false;
 			break;
+		case GLFW_KEY_A:
 		case GLFW_KEY_LEFT:
 			CGameWindow::requestArrowLeft = false;
 			break;
+		case GLFW_KEY_D:
 		case GLFW_KEY_RIGHT:
 			CGameWindow::requestArrowRight = false;
 			break;

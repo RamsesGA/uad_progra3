@@ -165,6 +165,8 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\AABB.h" />
+    <ClInclude Include="Include\AABB_2D.h" />
     <ClInclude Include="Include\C3DModel.h" />
     <ClInclude Include="Include\C3DModel_FBX.h" />
     <ClInclude Include="Include\C3DModel_Obj.h" />
@@ -173,22 +175,27 @@
     <ClInclude Include="Include\CAppEmpty.h" />
     <ClInclude Include="Include\CAppFBX_Loader.h" />
     <ClInclude Include="Include\CAppGeometricFigures.h" />
-    <ClInclude Include="Include\CAppHexGrid.h" />
     <ClInclude Include="Include\CAppMyCube.h" />
     <ClInclude Include="Include\CAppMy_Sphere_Toroide.h" />
     <ClInclude Include="Include\CAppObjLoader.h" />
+    <ClInclude Include="Include\CAppQuadTree.h" />
     <ClInclude Include="Include\CBinaryTree.h" />
     <ClInclude Include="Include\CBinaryTreeNode.h" />
+    <ClInclude Include="Include\CCamera.h" />
     <ClInclude Include="Include\CCircularDoubleLinkedList.h" />
     <ClInclude Include="Include\CCircularDoubleLinkedListNode.h" />
     <ClInclude Include="Include\CColor.h" />
     <ClInclude Include="Include\Centros_Hexa.h" />
+    <ClInclude Include="Include\CFrustrum.h" />
     <ClInclude Include="Include\CGameMenu.h" />
     <ClInclude Include="Include\CGameMenuItem.h" />
     <ClInclude Include="Include\CGameWindow.h" />
     <ClInclude Include="Include\CLight.h" />
     <ClInclude Include="Include\COpenGLRenderer.h" />
     <ClInclude Include="Include\COpenGLShaderProgram.h" />
+    <ClInclude Include="Include\CPlane.h" />
+    <ClInclude Include="Include\CQuadTree.h" />
+    <ClInclude Include="Include\CQuadTreeNode.h" />
     <ClInclude Include="Include\CTextureLoader.h" />
     <ClInclude Include="Include\CVector3.h" />
     <ClInclude Include="Include\CWideStringHelper.h" />
@@ -209,6 +216,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Source\AABB.cpp" />
+    <ClCompile Include="Source\AABB_2D.cpp" />
     <ClCompile Include="Source\C3DModel.cpp" />
     <ClCompile Include="Source\C3DModel_FBX.cpp" />
     <ClCompile Include="Source\C3DModel_Obj.cpp" />
@@ -217,19 +226,24 @@
     <ClCompile Include="Source\CAppEmpty.cpp" />
     <ClCompile Include="Source\CAppFBX_Loader.cpp" />
     <ClCompile Include="Source\CAppGeometricFigures.cpp" />
-    <ClCompile Include="Source\CAppHexGrid.cpp" />
     <ClCompile Include="Source\CAppMyCube.cpp" />
     <ClCompile Include="Source\CAppMy_Sphere_Toroide.cpp" />
     <ClCompile Include="Source\CAppObjLoader.cpp" />
+    <ClCompile Include="Source\CAppQuadTree.cpp" />
+    <ClCompile Include="Source\CCamera.cpp" />
     <ClCompile Include="Source\CCircularDoubleLinkedList.cpp" />
     <ClCompile Include="Source\CCircularDoubleLinkedListNode.cpp" />
     <ClCompile Include="Source\Centros_Hexa.cpp" />
+    <ClCompile Include="Source\CFrustrum.cpp" />
     <ClCompile Include="Source\CGameMenu.cpp" />
     <ClCompile Include="Source\CGameMenuItem.cpp" />
     <ClCompile Include="Source\CGameWindow.cpp" />
     <ClCompile Include="Source\CLight.cpp" />
     <ClCompile Include="Source\COpenGLRenderer.cpp" />
     <ClCompile Include="Source\COpenGLShaderProgram.cpp" />
+    <ClCompile Include="Source\CPlane.cpp" />
+    <ClCompile Include="Source\CQuadTree.cpp" />
+    <ClCompile Include="Source\CQuadTreeNode.cpp" />
     <ClCompile Include="Source\CTextureLoader.cpp" />
     <ClCompile Include="Source\CVector3.cpp" />
     <ClCompile Include="Source\Hexa_Grid.cpp" />

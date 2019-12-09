@@ -55,9 +55,9 @@ class Hexa_World : public CApp
 
 		bool isLoaded; //Booleano para poder dar la dirección ID de las variables
 
-		unsigned int num_cols; //Cantidad de columnas
-		unsigned int num_rows; //Cantidad de filas
-		unsigned int index = 0; //Contador para saber la cantidad exacta de figuras creadas
+		int num_cols; //Cantidad de columnas
+		int num_rows; //Cantidad de filas
+		int index = 0; //Contador para saber la cantidad exacta de figuras creadas
 
 		float cell_size; //Tamaño de la celda
 

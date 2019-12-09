@@ -7,3 +7,7 @@ Centers::Centers(CVector3 _center)
 }
 
 Centers::~Centers(){}
+
+void Centers::getTriangleCount()
+{
+}

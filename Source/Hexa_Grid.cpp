@@ -13,7 +13,6 @@ Hexa_Grid::~Hexa_Grid(){}
 
 void Hexa_Grid::initialize(unsigned int _num_cols, unsigned int _num_rows, float _cell_size, bool _p_or_f, CVector3 _center)
 {
-	system("cls");
 
 	w = (sqrtf(3) * _cell_size) * 1.717f;
 	h = (2 * _cell_size) * 1.71585f;

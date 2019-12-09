@@ -5,6 +5,7 @@
 
 // WINDOW TITLES
 #define CAPP_PROGRA3_EMPTYAPP_WINDOW_TITLE      "Empty app - OpenGL + GLFW Library initialization"
+#define CAPP_PROGRA3_QUADTREE_WINDOW_TITLE		"CApp Quad Tree"
 #define CAPP_PROGRA3_CUBES_WINDOW_TITLE         "Cubes app"
 #define CAPP_PROGRA3_OBJ_LOADER_WINDOW_TITLE    ".OBJ Loader app"
 #define CAPP_PROGRA3_FBX_LOADER_WINDOW_TITLE	".FBX Loader app :D"

@@ -24,7 +24,7 @@ class Hexa_Grid
 
 		//Variables vitales para poder usar en Hexa_World
 		float m_vertex_data[18];
-		float m_vertex_UVs[12];
+		float m_vertex_UVs[12] ;
 		float m_normal_Data[12];
 
 		unsigned short m_face_Indices[12];

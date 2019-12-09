@@ -45,17 +45,6 @@ Hexa_World::~Hexa_World()
 //------------------------------------------------------------------------------------------------------------
 void Hexa_World::onF3(int mods)
 {
-	//if (m_render_Polygon_Mode == 0)
-	//{
-	//	getOpenGLRenderer()->setFillPolygonMode();
-	//	m_render_Polygon_Mode = 1;
-	//}
-	//else
-	//{
-	//	getOpenGLRenderer()->setWireframePolygonMode();
-	//	m_render_Polygon_Mode = 0;
-	//}
-	// Check BITWISE AND to detect shift/alt/ctrl
 	if (mods & KEY_MOD_SHIFT)
 	{
 		moveCamera(-1.0f);
@@ -226,9 +215,14 @@ void Hexa_World::initialize()
 	}
 
 	m_initialized = true;
-	
+
+
+
+
 	//Llamada de la función para poder generar los puntos
 	llamada_hex_grid();
+
+
 
 
 	//Iteramos los datos para encontrar y guardar de Model Instances
@@ -253,10 +247,8 @@ void Hexa_World::initialize()
 					obj_grid.vec_center_hexa[obj_row][obj_column].instance_obj = m_game_objects[i];
 				}
 			}
-			
 		}
 	}
-
 }
 
 //Función solo para poder mandar a inicializar los puntos y vertices del hexágono
